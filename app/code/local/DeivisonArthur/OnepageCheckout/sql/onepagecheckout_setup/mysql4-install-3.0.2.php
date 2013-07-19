@@ -1,50 +1,9 @@
 <?php
 
-/*=========================================================================================================================================================
- *
- *  PROJETO OSC MAGENTO BRASIL - VERS�O FINAL V3.0
- *  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *  O m�dulo One Step Checkout normatizado para a localiza��o brasileira.
- *  site do projeto: http://onestepcheckout.com.br/
- *  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- *
- *
- *  Mmantenedores do Projeto:
- *  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- *  Deivison Arthur Lemos Serpa
- *  deivison.arthur@gmail.com
- *  www.deivison.com.br
- *  (21)9203-8986
- *
- *  Denis Colli Spalenza
- *  http://www.xpdev.com.br
- *
- *  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
- *
- *
- *  GOSTOU DO M�DULO?
- *  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *  Se voc� gostou, se foi �til para voc�, se fez voc� economizar aquela grana pois estava prestes a pagar caro por aquele m�dulo pago, pois n�o achava um
- *  solu��o gratuita que te atendesse e queira prestigiar o trabalho feito efetuando uma doa��o de qualquer valor, n�o vou negar e vou ficar grato, voc�
- *  pode fazer isso visitando a p�gina do projeto em: http://onestepcheckout.com.br/
- *  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *
-/*=========================================================================================================================================================
- */
-
-
-
 $installer = $this;
-
-
 $installer->startSetup(); //inicia a instala��o
 
 $tabela = $this->getTable('directory/country_region'); //pega o nome da tabela que cont�m os estados no magento
-
-
 
 /*==============================================================================
  *
@@ -150,88 +109,13 @@ if(  @$estadoTeste[0]['code'] != "AC"  ){
 
 /*==============================================================================
  *
- *
- *  Adiciona os campos Tipo Pessoa, RG, IE, CPF, Celular, nomeentrega, rgientrega, cpfentrega, telentrega e empresa
- *
+ *  Adiciona os campos RG, CPF, Celular
  *
  * =============================================================================
  */
 
 $tabela2 = $this->getTable('eav/attribute'); //pega o nome da tabela que cont�m os atributos no
 //Tabela onde � adionado os campos eav_attribute
-
-
-/*==============================================================================
- *  Testa par ver se o atributo tipopessoa j� existe no sistema
- * =============================================================================
- */
-$sqlTeste2 = "SELECT * FROM {$tabela2} WHERE attribute_code = 'tipopessoa'";
-$connectionTeste2 = Mage::getSingleton('core/resource')->getConnection('core_read');
-$estadoTeste2 = $connectionTeste2->fetchAll($sqlTeste2);
-
-if(  @$estadoTeste2[0]['attribute_code'] != "tipopessoa"  ){
-
-        /*==============================================================================
-         *  Adiciona o campo Tipo Pessoa no billing e shipping
-         * =============================================================================
-         */
-         $this->addAttribute('customer_address', 'tipopessoa', array(
-              'type' => 'varchar', //int
-              'input' => 'text',  //select
-              'label' => 'Tipo Pessoa',
-              'global' => 1,
-              'visible' => 1,
-              'required' => 0,
-              'user_defined' => 1,
-              'visible_on_front' => 1
-              //,'source' =>  'onepagecheckout/entity_tipopessoa'
-          ));
-          Mage::getSingleton('eav/config')
-              ->getAttribute('customer_address', 'tipopessoa')
-              ->setData('used_in_forms', array('customer_register_address','customer_address_edit','adminhtml_customer_address'))
-              ->save();
-
-        $tablequoteTipopessoa = $this->getTable('sales/order_address');
-        Mage::log("TABELA IE ".$tablequoteTipopessoa);
-        $installer->run("
-        ALTER TABLE  $tablequoteTipopessoa ADD `tipopessoa` VARCHAR(25) NULL
-        ");
-
-        /*==============================================================================
-         *  Adiciona o campo Tipo Pessoa no cadastro do usuario
-         * =============================================================================
-         */
-        //$setup = Mage::getModel('customer/entity_setup', 'core_setup');
-        $this->addAttribute('customer', 'tipopessoa', array(
-        	'type' => 'varchar', //int
-        	'input' => 'text',  //select
-        	'label' => 'Tipo Pessoa',
-        	'global' => 1,
-        	'visible' => 1,
-        	'required' => 0,
-        	'user_defined' => 1,
-        	'default' => '',
-        	'visible_on_front' => 1
-            //,'source' =>	 'onepagecheckout/entity_tipopessoa'
-        ));
-
-        if (version_compare(Mage::getVersion(), '1.4.2', '>='))
-        {
-        	Mage::getSingleton('eav/config')
-        	->getAttribute('customer', 'tipopessoa')
-        	->setData('used_in_forms', array('adminhtml_customer','customer_account_create','customer_account_edit','checkout_register','adminhtml_customer_address','customer_address_edit','customer_register_address'))
-        	->save();
-        };
-
-        $tablequoteTipopessoa2 = $this->getTable('sales/quote');
-        Mage::log("TABELA ".$tablequoteTipopessoa2);
-        $installer->run("
-        ALTER TABLE  $tablequoteTipopessoa2 ADD `tipopessoa` VARCHAR(30) NULL
-        ");
-
-};
-
-
 
 /*==============================================================================
  *  Testa par ver se o atributo rg j� existe no sistema
@@ -297,134 +181,6 @@ if(  @$estadoTeste2[0]['attribute_code'] != "rg"  ){
         ALTER TABLE  $tablequoteRG2 ADD `customer_rg` VARCHAR(25) NULL
         ");
 };
-/*==============================================================================
- *  Testa par ver se o atributo ie j� existe no sistema
- * =============================================================================
- */
-$sqlTeste2 = "SELECT * FROM {$tabela2} WHERE attribute_code = 'ie'";
-$connectionTeste2 = Mage::getSingleton('core/resource')->getConnection('core_read');
-$estadoTeste2 = $connectionTeste2->fetchAll($sqlTeste2);
-
-if(  @$estadoTeste2[0]['attribute_code'] != "ie"  ){
-
-        /*==============================================================================
-         *  Adiciona o campo Inscri��o Estadual no billing e shipping
-         * =============================================================================
-         */
-         $this->addAttribute('customer_address', 'ie', array(
-              'type' => 'varchar',
-              'input' => 'text',
-              'label' => 'Inscricao Estadual',
-              'global' => 1,
-              'visible' => 1,
-              'required' => 0,
-              'user_defined' => 1,
-              'visible_on_front' => 1
-          ));
-          Mage::getSingleton('eav/config')
-              ->getAttribute('customer_address', 'ie')
-              ->setData('used_in_forms', array('customer_register_address','customer_address_edit','adminhtml_customer_address'))
-              ->save();
-
-        $tablequoteIE = $this->getTable('sales/order_address');
-        Mage::log("TABELA IE ".$tablequoteIE);
-        $installer->run("
-        ALTER TABLE  $tablequoteIE ADD `ie` VARCHAR(25) NULL
-        ");
-        /*==============================================================================
-         *  Adiciona o campo Inscri��o Estadual no cadastro do usuario
-         * =============================================================================
-         */
-        $this->addAttribute('customer', 'ie', array(
-        	'type' => 'varchar',
-        	'input' => 'text',
-        	'label' => 'Inscricao Estadual',
-        	'global' => 1,
-        	'visible' => 1,
-        	'required' => 0,
-        	'user_defined' => 1,
-        	'default' => '',
-        	'visible_on_front' => 1
-        ));
-
-        if (version_compare(Mage::getVersion(), '1.4.2', '>='))
-        {
-            Mage::getSingleton('eav/config')
-        	->getAttribute('customer', 'ie')
-        	->setData('used_in_forms', array('adminhtml_customer','customer_account_create','customer_account_edit','checkout_register','adminhtml_customer_address','customer_address_edit','customer_register_address'))
-        	->save();
-        };
-
-        $tablequoteIE2 = $this->getTable('sales/quote');
-        Mage::log("TABELA IE ".$tablequoteIE2);
-        $installer->run("
-        ALTER TABLE  $tablequoteIE2 ADD `customer_ie` VARCHAR(25) NULL
-        ");
-};
-/*==============================================================================
- *  Testa par ver se o atributo cpfcnpj j� existe no sistema
- * =============================================================================
- */
-$sqlTeste2 = "SELECT * FROM {$tabela2} WHERE attribute_code = 'cpfcnpj'";
-$connectionTeste2 = Mage::getSingleton('core/resource')->getConnection('core_read');
-$estadoTeste2 = $connectionTeste2->fetchAll($sqlTeste2);
-
-if(  @$estadoTeste2[0]['attribute_code'] != "cpfcnpj"  ){
-
-        /*==============================================================================
-         *  Adiciona o campo cpf/cnpj no billing e shipping
-         * =============================================================================
-         */
-         $this->addAttribute('customer_address', 'cpfcnpj', array(
-              'type' => 'varchar',
-              'input' => 'text',
-              'label' => 'CPF/CNPJ',
-              'global' => 1,
-              'visible' => 1,
-              'required' => 0,
-              'user_defined' => 1,
-              'visible_on_front' => 1
-          ));
-          Mage::getSingleton('eav/config')
-              ->getAttribute('customer_address', 'cpfcnpj')
-              ->setData('used_in_forms', array('customer_register_address','customer_address_edit','adminhtml_customer_address'))
-              ->save();
-
-        $tablequoteCpfcnpj = $this->getTable('sales/order_address');
-        Mage::log("TABELA IE ".$tablequoteCpfcnpj);
-        $installer->run("
-        ALTER TABLE  $tablequoteCpfcnpj ADD `cpfcnpj` VARCHAR(50) NULL
-        ");
-        /*==============================================================================
-         *  Adiciona o campo cpf/cnpj no cadastro do usuario
-         * =============================================================================
-         */
-        $this->addAttribute('customer', 'cpfcnpj', array(
-        	'type' => 'varchar',
-        	'input' => 'text',
-        	'label' => 'CPF/CNPJ',
-        	'global' => 1,
-        	'visible' => 1,
-        	'required' => 0,
-        	'user_defined' => 1,
-        	'default' => '',
-        	'visible_on_front' => 1
-        ));
-
-        if (version_compare(Mage::getVersion(), '1.4.2', '>='))
-        {
-            Mage::getSingleton('eav/config')
-        	->getAttribute('customer', 'cpfcnpj')
-        	->setData('used_in_forms', array('adminhtml_customer','customer_account_create','customer_account_edit','checkout_register','adminhtml_customer_address','customer_address_edit','customer_register_address'))
-        	->save();
-        };
-
-        $tablequoteCpfcnpj = $this->getTable('sales/quote');
-        Mage::log("TABELA cpfcnpj ".$tablequoteCpfcnpj);
-        $installer->run("
-        ALTER TABLE  $tablequoteCpfcnpj ADD `customer_cpfcnpj` VARCHAR(50) NULL
-        ");
-};
 
 /*==============================================================================
  *  Testa par ver se o atributo celular j� existe no sistema
@@ -443,7 +199,7 @@ if(  @$estadoTeste2[0]['attribute_code'] != "celular"  ){
          $this->addAttribute('customer_address', 'celular', array(
               'type' => 'varchar',
               'input' => 'text',
-              'label' => 'celular',
+              'label' => 'Celular',
               'global' => 1,
               'visible' => 1,
               'required' => 0,
@@ -492,151 +248,12 @@ if(  @$estadoTeste2[0]['attribute_code'] != "celular"  ){
 };
 
 
-
-
-
-/*==============================================================================
- *  Testa par ver se o atributo empresa j� existe no sistema
- * =============================================================================
+/*
+ * INSERIR NO SCRIPT
+ *
+ * UPDATE `core_config_data` SET `scope` = 'default', `scope_id` = '0', `path` = 'customer/address/taxvat_show', `value` = 'req'     WHERE (config_id='187')
+ *
  */
-$sqlTeste2 = "SELECT * FROM {$tabela2} WHERE attribute_code = 'empresa'";
-$connectionTeste2 = Mage::getSingleton('core/resource')->getConnection('core_read');
-$estadoTeste2 = $connectionTeste2->fetchAll($sqlTeste2);
-
-if(  @$estadoTeste2[0]['attribute_code'] != "empresa"  ){
-
-        /*==============================================================================
-         *  Adiciona o campo Tipo Pessoa no billing e shipping
-         * =============================================================================
-         */
-         $this->addAttribute('customer_address', 'empresa', array(
-              'type' => 'varchar',
-              'input' => 'text',
-              'label' => 'Empresa',
-              'global' => 1,
-              'visible' => 1,
-              'required' => 0,
-              'user_defined' => 1,
-              'visible_on_front' => 1
-          ));
-          Mage::getSingleton('eav/config')
-              ->getAttribute('customer_address', 'empresa')
-              ->setData('used_in_forms', array('customer_register_address','customer_address_edit','adminhtml_customer_address'))
-              ->save();
-
-        $tablequoteEmpresa = $this->getTable('sales/order_address');
-        Mage::log("TABELA IE ".$tablequoteEmpresa);
-        $installer->run("
-        ALTER TABLE  $tablequoteEmpresa ADD `empresa` VARCHAR(25) NULL
-        ");
-
-        /*==============================================================================
-         *  Adiciona o campo Tipo Pessoa no cadastro do usuario
-         * =============================================================================
-         */
-        //$setup = Mage::getModel('customer/entity_setup', 'core_setup');
-        $this->addAttribute('customer', 'empresa', array(
-        	'type' => 'varchar',
-        	'input' => 'text',
-        	'label' => 'Empresa',
-        	'global' => 1,
-        	'visible' => 1,
-        	'required' => 0,
-        	'user_defined' => 1,
-        	'default' => '',
-        	'visible_on_front' => 1
-        ));
-
-        if (version_compare(Mage::getVersion(), '1.4.2', '>='))
-        {
-        	Mage::getSingleton('eav/config')
-        	->getAttribute('customer', 'empresa')
-        	->setData('used_in_forms', array('adminhtml_customer','customer_account_create','customer_account_edit','checkout_register','adminhtml_customer_address','customer_address_edit','customer_register_address'))
-        	->save();
-        };
-
-        $tablequoteEmpresa2 = $this->getTable('sales/quote');
-        Mage::log("TABELA ".$tablequoteEmpresa2);
-        $installer->run("
-        ALTER TABLE  $tablequoteEmpresa2 ADD `empresa` VARCHAR(30) NULL
-        ");
-
-};
-
-
-
-
-
-/*==============================================================================
- *  Testa par ver se o atributo nomefantasia j� existe no sistema
- * =============================================================================
- */
-$sqlTeste2 = "SELECT * FROM {$tabela2} WHERE attribute_code = 'nomefantasia'";
-$connectionTeste2 = Mage::getSingleton('core/resource')->getConnection('core_read');
-$estadoTeste2 = $connectionTeste2->fetchAll($sqlTeste2);
-
-if(  @$estadoTeste2[0]['attribute_code'] != "nomefantasia"  ){
-
-        /*==============================================================================
-         *  Adiciona o campo Tipo Pessoa no billing e shipping
-         * =============================================================================
-         */
-         $this->addAttribute('customer_address', 'nomefantasia', array(
-              'type' => 'varchar',
-              'input' => 'text',
-              'label' => 'Nome Fantasia',
-              'global' => 1,
-              'visible' => 1,
-              'required' => 0,
-              'user_defined' => 1,
-              'visible_on_front' => 1
-          ));
-          Mage::getSingleton('eav/config')
-              ->getAttribute('customer_address', 'nomefantasia')
-              ->setData('used_in_forms', array('customer_register_address','customer_address_edit','adminhtml_customer_address'))
-              ->save();
-
-        $tablequoteNomefantasia = $this->getTable('sales/order_address');
-        Mage::log("TABELA IE ".$tablequoteNomefantasia);
-        $installer->run("
-        ALTER TABLE  $tablequoteNomefantasia ADD `nomefantasia` VARCHAR(25) NULL
-        ");
-
-        /*==============================================================================
-         *  Adiciona o campo Tipo Pessoa no cadastro do usuario
-         * =============================================================================
-         */
-        //$setup = Mage::getModel('customer/entity_setup', 'core_setup');
-        $this->addAttribute('customer', 'nomefantasia', array(
-        	'type' => 'varchar',
-        	'input' => 'text',
-        	'label' => 'Nome Fantasia',
-        	'global' => 1,
-        	'visible' => 1,
-        	'required' => 0,
-        	'user_defined' => 1,
-        	'default' => '',
-        	'visible_on_front' => 1
-        ));
-
-        if (version_compare(Mage::getVersion(), '1.4.2', '>='))
-        {
-        	Mage::getSingleton('eav/config')
-        	->getAttribute('customer', 'nomefantasia')
-        	->setData('used_in_forms', array('adminhtml_customer','customer_account_create','customer_account_edit','checkout_register','adminhtml_customer_address','customer_address_edit','customer_register_address'))
-        	->save();
-        };
-
-        $tablequoteNomefantasia2 = $this->getTable('sales/quote');
-        Mage::log("TABELA ".$tablequoteNomefantasia2);
-        $installer->run("
-        ALTER TABLE  $tablequoteNomefantasia2 ADD `nomefantasia` VARCHAR(30) NULL
-        ");
-
-};
-
-
-
 
 
 $installer->endSetup();
