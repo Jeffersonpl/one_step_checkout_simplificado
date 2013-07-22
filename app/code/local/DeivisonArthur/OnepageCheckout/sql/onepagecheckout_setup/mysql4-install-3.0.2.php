@@ -8,7 +8,7 @@ $tabela = $this->getTable('directory/country_region'); //pega o nome da tabela q
 /*==============================================================================
  *
  *
- *  Adiciona os estados brasileiro
+ *  Adiciona os estados brasileiros
  *
  *
  * =============================================================================
