@@ -51,9 +51,9 @@
                         </div>
 
                         <div class="field">
-                            <label for="fax">Celular</label>
+                            <label for="celular">Celular</label>
                             <div class="input-box">
-                                <input type="text" name="fax" id="fax" value="<?php echo $this->escapeHtml($this->getFormData()->getCelular()) ?>" title="Celular" class="input-text" />
+                                <input type="text" name="celular" id="celular" value="<?php echo $this->escapeHtml($this->getFormData()->getCelular()) ?>" title="Celular" class="input-text" />
                             </div>
                         </div>
                     </div>
@@ -67,33 +67,54 @@
                 <input type="hidden" name="create_address" value="1" />
 
                 <ul class="form-list">
-                    <?php $_streetValidationClass = $this->helper('customer/address')->getAttributeValidationClass('street'); ?>
-
                     <li class="wide">
-                        <label for="street_1" class="required"><em>*</em>Endereço</label>
-                        <div class="input-box">
-                            <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(1)) ?>" title="Endereço" id="street_1" class="input-text <?php echo $_streetValidationClass ?>" />
+                        <div class="field">
+                            <label for="zip" class="required"><em>*</em>CEP</label>
+                            <div class="input-box">
+                                <input type="text" name="postcode" value="<?php echo $this->escapeHtml($this->getFormData()->getPostcode()) ?>" title="CEP" id="zip" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" />
+                            </div>
                         </div>
                     </li>
 
-                    <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
-
-                    <?php for ($_i = 2, $_n = $this->helper('customer/address')->getStreetLines(); $_i <= $_n; $_i++): ?>
-                        <li class="wide">
+                    <li class="wide">
+                        <div class="field">
+                            <label for="street_1" class="required"><em>*</em>Endereço</label>
                             <div class="input-box">
-                                <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet($_i)) ?>" title="<?php echo $this->__('Street Address %s', $_i) ?>" id="street_<?php echo $_i ?>" class="input-text <?php echo $_streetValidationClass ?>" />
+                                <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(1)) ?>" title="Endereço" id="street_1" class="input-text required-entry" />
                             </div>
-                        </li>
-                    <?php endfor; ?>
+                        </div>
+                    </li>
+                    <li class="fields">
+                        <div class="field">
+                            <label for="street_2" class="required"><em>*</em>Número</label>
+                            <div class="input-box">
+                                <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(2)) ?>" title="Número" id="street_2" class="input-text required-entry" />
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="street_3">Complemento</label>
+                            <div class="input-box">
+                                <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(3)) ?>" title="Complemento" id="street_3" class="input-text" />
+                            </div>
+                        </div>
+                    </li>
 
                     <li class="fields">
+                        <div class="field">
+                            <label for="street_4" class="required"><em>*</em>Bairro</label>
+                            <div class="input-box">
+                                <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(4)) ?>" title="Bairro" id="street_4" class="input-text required-entry" />
+                            </div>
+                        </div>
                         <div class="field">
                             <label for="city" class="required"><em>*</em>Cidade</label>
                             <div class="input-box">
                                 <input type="text" name="city" value="<?php echo $this->escapeHtml($this->getFormData()->getCity()) ?>" title="Cidade" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('city') ?>" id="city" />
                             </div>
                         </div>
+                    </li>
 
+                    <li class="fields">
                         <div class="field">
                             <label for="region_id" class="required"><em>*</em>Estado</label>
                             <div class="input-box">
@@ -108,16 +129,6 @@
                                 <input type="text" id="region" name="region" value="<?php echo $this->escapeHtml($this->getRegion()) ?>" title="<?php echo $this->__('State/Province') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" style="display:none;" />
                             </div>
                         </div>
-                    </li>
-
-                    <li class="fields">
-                        <div class="field">
-                            <label for="zip" class="required"><em>*</em>CEP</label>
-                            <div class="input-box">
-                                <input type="text" name="postcode" value="<?php echo $this->escapeHtml($this->getFormData()->getPostcode()) ?>" title="CEP" id="zip" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" />
-                            </div>
-                        </div>
-
                         <div class="field">
                                 <label for="country" class="required"><em>*</em>País</label>
                             <div class="input-box">
@@ -125,6 +136,7 @@
                             </div>
                         </div>
                     </li>
+
                 </ul>
 
                 <input type="hidden" name="default_billing" value="1" />

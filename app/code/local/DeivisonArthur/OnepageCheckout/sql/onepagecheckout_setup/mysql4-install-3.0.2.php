@@ -223,7 +223,7 @@ if(  @$estadoTeste2[0]['attribute_code'] != "celular"  ){
         $this->addAttribute('customer', 'celular', array(
         	'type' => 'varchar',
         	'input' => 'text',
-        	'label' => 'celular',
+        	'label' => 'Celular',
         	'global' => 1,
         	'visible' => 1,
         	'required' => 0,

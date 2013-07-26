@@ -13,9 +13,6 @@ $has_addr	= $this->customerHasAddresses();
     <div class="form_fields">
     <?php if ($has_addr){ ?>
         <div class="full">
-            <label for="billing_cutomer_address">
-            	<?php echo $this->__('Select a billing address from your address book or enter a new address.') ?>
-            </label>
             <div class="data_area">
                 <?php echo $this->getCustomerBillAddr() ?>
             </div>
