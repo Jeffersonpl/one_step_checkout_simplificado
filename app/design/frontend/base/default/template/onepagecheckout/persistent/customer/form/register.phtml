@@ -1,3 +1,7 @@
+<script type="text/javascript" src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)?>frontend/base/default/deivison/jquery.js"></script>
+<script type="text/javascript">
+    var $j = jQuery.noConflict();
+</script>
 <script type="text/javascript" src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)?>frontend/base/default/deivison/deivison.js"></script>
 
 <div class="account-create">
@@ -71,7 +75,7 @@
                         <div class="field">
                             <label for="zip" class="required"><em>*</em>CEP</label>
                             <div class="input-box">
-                                <input type="text" name="postcode" value="<?php echo $this->escapeHtml($this->getFormData()->getPostcode()) ?>" title="CEP" id="zip" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" />
+                                <input type="text" name="postcode" value="<?php echo $this->escapeHtml($this->getFormData()->getPostcode()) ?>" title="CEP" id="zip" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" onblur="buscarEndereco(this.value);" />
                             </div>
                         </div>
                     </li>
@@ -80,7 +84,7 @@
                         <div class="field">
                             <label for="street_1" class="required"><em>*</em>Endereço</label>
                             <div class="input-box">
-                                <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(1)) ?>" title="Endereço" id="street_1" class="input-text required-entry" />
+                                <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(1)) ?>" title="Endereço" id="street1" class="input-text required-entry" />
                             </div>
                         </div>
                     </li>
@@ -88,13 +92,13 @@
                         <div class="field">
                             <label for="street_2" class="required"><em>*</em>Número</label>
                             <div class="input-box">
-                                <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(2)) ?>" title="Número" id="street_2" class="input-text required-entry" />
+                                <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(2)) ?>" title="Número" id="street2" class="input-text required-entry" />
                             </div>
                         </div>
                         <div class="field">
                             <label for="street_3">Complemento</label>
                             <div class="input-box">
-                                <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(3)) ?>" title="Complemento" id="street_3" class="input-text" />
+                                <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(3)) ?>" title="Complemento" id="street3" class="input-text" />
                             </div>
                         </div>
                     </li>
@@ -103,7 +107,7 @@
                         <div class="field">
                             <label for="street_4" class="required"><em>*</em>Bairro</label>
                             <div class="input-box">
-                                <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(4)) ?>" title="Bairro" id="street_4" class="input-text required-entry" />
+                                <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(4)) ?>" title="Bairro" id="street4" class="input-text required-entry" />
                             </div>
                         </div>
                         <div class="field">
