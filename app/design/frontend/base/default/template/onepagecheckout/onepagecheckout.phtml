@@ -2,11 +2,9 @@
     <h1 class='h1_opc'><?php echo Mage::getStoreConfig('onepagecheckout/general/title') ?></h1>
     <?php if (! Mage::getSingleton('customer/session')->isLoggedIn()): ?>
 
-    <p class="onepagecheckout_loginarea">
-       <a href="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB)?>customer/account/login/" class="onepagecheckout_loginlink">
-            Já possui cadastro? Clique aqui e poupe tempo!
-        </a>
-    </p>
+    <div class="login-reg clearfix">
+        <a style="padding:0 0 5px 0;display:block;float:left;" href="javascript:lightbox('gift-form')" id="lightboxLink" title="my caption">Já possui cadastro? Clique aqui e poupe tempo!</a>
+    </div>
     
 	<?php 
 		echo $this->getChildHtml('customer.login');
@@ -28,6 +26,222 @@ $seq_http	= (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS']==='on');
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/onepagecheckout.js') ?>"></script>
 
 <script type="text/javascript">countryRegions = <?php echo $this->helper('directory')->getRegionJson() ?></script>
+
+<!---start of login-popup code -->
+<div  id="gift-form"  style="display:none;position: fixed;z-index: 99999;">
+    <div class="onestepcheckout-popup-wrapper">
+        <div id="onestepcheckout-login-popup-contents-login" style="">
+            <a  class="close" href="javascript:fecharModal()"> <img src="<?php echo $this->getSkinUrl('images/btn_window_close.gif') ?>" alt="fechar" width="16" height="16" title="fechar"  /></a>
+            <div id="onestepcheckout-login-form">
+                <h3 style="float: left; text-align: center; margin: 0 0 30px 140px;">Login</h3>
+                <div class="clear"></div>
+
+                <form id="onestepcheckout-login-form-detail">
+                    <div id="onestepcheckout-login-loading" style="display: none; " class="loading-ajax">&nbsp;</div>
+                    <table id="onestepcheckout-login-table" style="margin-left:15px;">
+                        <tbody>
+                            <tr>
+                                <td style="width: 30%; font-weight: bold;">
+                                    <label for="id_onestepcheckout_username">E-mail</label>
+                                </td>
+                                <td style="width:7%"></td>
+                                <td style="width: 51%;">
+                                    <input tabindex="100" type="text" class="input-text" name="onestepcheckout_username" id="id_onestepcheckout_username">
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr style="height:10px;"></tr>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    <label for="id_onestepcheckout_password">Senha</label>
+                                </td>
+                                <td style="width:7%"></td>
+                                <td width="80%;">
+                                    <input type="password" tabindex="101" name="onestepcheckout_password" class="input-text" id="id_onestepcheckout_password">
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr style="height:10px;">
+                                <td colspan="2"></td>
+                                <td>
+                                    <a style="padding-left:3px;cursor:pointer;" onclick="forgot_password();">Esqueci a senha</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <div id="onestepcheckout-login-error" class="onestepcheckout-error" style="display: none; ">E-mail ou senha inválida</div>
+                                </td>
+                                <td style="width: 19%;">
+                                    <button tabindex="102" id="onestepcheckout-login-button" class="button" type="button">
+                                        <span>Entrar</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+<!---End of login-popup code -->
+
+<!---Start of Forgot password -popup code -->
+            <div id="onestepcheckout-forgot-form" style="display:none;">
+                <h3 style="float: left; text-align: center; margin-left: 114px; ">Recuperar Senha</h3>
+                <div class="clear"></div>
+
+                <p style="margin-bottom:20px;padding-left:14px;font-size:11px;text-align:center;">Informe o seu e-mail para receber uma nova senha</p>
+
+                <form>
+                    <div id="onestepcheckout-forgot-loading" style="display: none;" class="loading-ajax">&nbsp;</div>
+                    <div id="onestepcheckout-forgot-success" style="display: none;">Em alguns instantes você receberá um e-mail.</div>
+
+                    <table id="onestepcheckout-forgot-table">
+                        <tr>
+                            <td style="width: 25%;">
+                                <label for="id_onestepcheckout_email">E-mail</label>
+                            </td>
+                            <td style="width: 40%;">
+                                <input type="text" class="input-text" name="onestepcheckout_email" id="id_onestepcheckout_email" />
+                            </td>
+                            <td style="width: 45%; text-align: center;">
+                                <button id="onestepcheckout-forgot-button" class="button" onclick="sendpassword()" type="button">
+                                    <span>Enviar</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+
+                <div id="onestepcheckout-forgot-error" class="onestepcheckout-error" style="display: none;">&nbsp;</div>
+                <a style="cursor:pointer;display:block;padding-top:15px;float:left;" onclick="return_login()">
+                   &larr; Voltar para login
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!---End of Forgot password -popup code -->
+
+<!---popup-box script -->
+<script type="text/javascript">
+
+var login;
+
+function lightbox(id) {
+    $('onestepcheckout-forgot-form').hide();
+    $('onestepcheckout-login-form').show();
+    login = new Lightbox(id);
+    login.open();
+}
+
+function fecharModal() {   
+    login.close();
+}
+
+function forgot_password() {
+    $('onestepcheckout-login-form').hide();
+    $('onestepcheckout-forgot-form').show();
+}
+
+function return_login() {
+    $('onestepcheckout-forgot-form').hide();
+    $('onestepcheckout-login-form').show();
+}
+
+function sendpassword() {
+    var table = $('onestepcheckout-forgot-table');
+    var loading = $('onestepcheckout-forgot-loading');
+    var error = $('onestepcheckout-forgot-error');
+    var success = $('onestepcheckout-forgot-success');
+    var email = $('id_onestepcheckout_email').getValue();
+
+    if(email != '') {
+
+        table.hide();
+        error.hide();
+        loading.show();
+
+        var url = '<?php echo $this->geturl('onepagecheckout/index/forgotpassword', array('_secure'=>true)); ?>';
+        var parameters = { email: email };
+
+        new Ajax.Request(url, {
+            method: 'post',
+            parameters: parameters,
+            onSuccess: function(transport)  {
+                var result = transport.responseText.evalJSON();
+
+                if(result.success)  {
+                     loading.hide();
+                     success.show();
+                }
+                else    {
+                    error.update('O e-mail informado não possui cadastro.');
+                    error.show();
+                    table.show();
+                    loading.hide();
+                }
+            }
+        });
+
+    }
+}
+
+Event.observe(window, 'load', function() {
+    var button = $('onestepcheckout-login-button');
+
+    var loginButtonFunction = function(e) {
+
+        var email = $('id_onestepcheckout_username').getValue();
+        var senha = $('id_onestepcheckout_password').getValue();
+
+        if ( ! email.empty() && ! senha.empty()) {
+        
+            /* Hide form and display loading */
+            var table = $('onestepcheckout-login-table');
+            var loading = $('onestepcheckout-login-loading');
+            var error = $('onestepcheckout-login-error');
+
+            table.hide();
+            error.hide();
+            loading.show();
+
+
+            var form = $('onestepcheckout-login-form-detail');
+            var url = '<?php echo $this->getUrl('onepagecheckout/index/login', array('_secure' => true)); ?>';
+            new Ajax.Request(url, {
+                parameters: form.serialize(true),
+                    method: 'POST',
+                    onComplete: function(transport) {
+                        if(transport.status == 200) {
+                            var result = transport.responseText.evalJSON();
+
+                            if(!result.success) {
+                                loading.hide();
+
+                                error.update(result.error);
+                                error.show();
+
+                                table.show();
+                            }
+                            else    {
+                                window.location=window.location;
+                            }
+                        }
+                    }
+                });
+            }
+    };
+
+    var onkeypressHandler = function(event) {
+        if(event.keyCode == Event.KEY_RETURN)  {
+            event.preventDefault();
+            loginButtonFunction();
+        }
+    };
+
+    button.observe('click', loginButtonFunction);
+
+});
+</script>
 
 <form action="" id="onepagecheckout_orderform">
 <div class="col3-set onepagecheckout_datafields">

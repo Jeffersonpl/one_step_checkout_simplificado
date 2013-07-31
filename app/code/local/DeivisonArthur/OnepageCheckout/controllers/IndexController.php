@@ -395,45 +395,28 @@ class DeivisonArthur_OnepageCheckout_IndexController extends Mage_Checkout_Contr
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
-    public function loginAction()
-    {
+    public function loginAction() {
+        $username = $this->getRequest()->getPost('onestepcheckout_username', false);
+        $password = $this->getRequest()->getPost('onestepcheckout_password', false);
         $session = Mage::getSingleton('customer/session');
-        if ($this->_expireAjax() || $session->isLoggedIn()) {
-            return;
-        }
 
-        $result = array('success' => false);
+        $result = array(
+            'success' => false
+        );
 
-        if ($this->getRequest()->isPost())
-        {
-            $login_data = $this->getRequest()->getPost('login');
-            if (empty($login_data['username']) || empty($login_data['password'])) {
-            	$result['error'] = Mage::helper('customer')->__('Login and password are required.');
+        if ($username && $password) {
+            try {
+                $session->login($username, $password);
+            } catch (Exception $e) {
+                $result['error'] = $e->getMessage();
             }
-            else
-            {
-				try
-				{
-                    $session->login($login_data['username'], $login_data['password']);
-                    $result['success'] = true;
-                    $result['redirect'] = Mage::getUrl('*/*/index');
-                }
-                catch (Mage_Core_Exception $e)
-                {
-                    switch ($e->getCode()) {
-                        case Mage_Customer_Model_Customer::EXCEPTION_EMAIL_NOT_CONFIRMED:
-                            $message = Mage::helper('customer')->__('Email is not confirmed. <a href="%s">Resend confirmation email.</a>', Mage::helper('customer')->getEmailConfirmationUrl($login_data['username']));
-                            break;
-                        default:
-                            $message = $e->getMessage();
-                    }
-                    $result['error'] = $message;
-                    $session->setUsername($login_data['username']);
-                }
+
+            if (!isset($result['error'])) {
+                $result['success'] = true;
             }
         }
 
-        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+        $this->getResponse()->setBody(Zend_Json::encode($result));
     }
 
     public function saveOrderAction()

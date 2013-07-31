@@ -181,3 +181,17 @@ p.newsletter label{color:#8E8D8B;}
 * html .d-sh-tl, * html .d-sh-tr { padding-right:42px; }
 /* IE7 fix */
 *:first-child+html .onepagecheckout-window { width: 500px; }
+
+
+/* login-popup design */
+a.close{float:right;}
+#gift-form{background:#fff;padding:10px;border:2px solid #828282;min-height:160px;width:350px;border-radius:7px; height: auto;}
+.clear{clear: both;}
+.onestepcheckout-error{color:red;font-weight: normal;}
+button.login-btn{background-color: #66A094;padding: 5px;border:none;font-weight: bold;color:#fff;border:none;}
+.button-set {border: none;margin: 0px;}
+/* login-popup design */
+.input-box .v-fix #ccsave_expiration{width:152px;}
+.onestepcheckout-summary .total  {text-align: right !important}
+.onestepcheckout-totals .product-total .value .price{float:right !important}
+.grand-total .value .price{float:right !important}
