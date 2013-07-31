@@ -143,6 +143,13 @@ class DeivisonArthur_OnepageCheckout_IndexController extends Mage_Checkout_Contr
             return;
         }
 
+        $cart = Mage::helper('checkout/cart');
+        $items = $cart->getCart()->getItems();
+        foreach ($items as $item) {
+            $itemId = $item->getItemId();
+            $cart->getCart()->removeItem($itemId)->save();
+        }
+
         $session->clear();
         $this->loadLayout();
         $this->_initLayoutMessages('checkout/session');
