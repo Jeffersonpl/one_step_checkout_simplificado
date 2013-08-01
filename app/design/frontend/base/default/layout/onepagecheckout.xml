@@ -100,8 +100,6 @@
             <block type="checkout/onepage_failure" name="checkout.failure" template="checkout/onepage/failure.phtml"/>
         </reference>
     </onepagecheckout_index_failure>
-
-
     
     <customer_account_create>
         <reference name="customer_form_register">
@@ -116,36 +114,10 @@
     	</reference>
     </customer_account_edit>
 
-
-
-
     <customer_address_form translate="label">
         <reference name="my.account.wrapper">
             <block type="customer/address_edit" name="customer_address_edit" template="onepagecheckout/persistent/customer/address/edit.phtml"/>
         </reference>
     </customer_address_form>
-
-
-
-
-<!--
-    <customer_address_form translate="label">
-        <label>Customer My Account Address Edit Form</label>
-        <update handle="customer_account"/>
-        <reference name="my.account.wrapper">
-            <block type="customer/address_edit" name="customer_address_edit" template="onepagecheckout/persistent/customer/address/edit.phtml"/>
-        </reference>
-    </customer_address_form>
-
-
-    <customer_address_index translate="label">
-        <label>Customer My Account Address Book</label>
-        <update handle="customer_account"/>
-        <reference name="my.account.wrapper">
-            <block type="customer/address_book" name="address_book" template="onepagecheckout/persistent/customer/address/book.phtml"/>
-        </reference>
-    </customer_address_index>
-
--->
 
 </layout>
