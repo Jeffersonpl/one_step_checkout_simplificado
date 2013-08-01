@@ -247,13 +247,8 @@ if(  @$estadoTeste2[0]['attribute_code'] != "celular"  ){
         ");
 };
 
-
-/*
- * INSERIR NO SCRIPT
- *
- * UPDATE `core_config_data` SET `scope` = 'default', `scope_id` = '0', `path` = 'customer/address/taxvat_show', `value` = 'req'     WHERE (config_id='187')
- *
- */
+// Taxvat obrigatório p/ salvar CPF no cadastro
+$installer->run("UPDATE core_config_data SET value = 'req' WHERE path = 'customer/address/taxvat_show'");
 
 
 $installer->endSetup();

@@ -269,8 +269,7 @@ Event.observe(window, 'load', function() {
             </div>
         </div>
         <?php endif; ?>
-        <input type="hidden" checked="checked" id="newsletter-signup" name="newsletter" value="1" title="<?php echo Mage::helper('newsletter')->__('Sign up for our newsletter') ?>" class="checkbox" />
-        <!--
+
 		<?php if (Mage::helper('onepagecheckout')->isSubscribeNewAllowed()) : ?>
             <p class="newsletter">
                 <input type="hidden" checked="checked" id="newsletter-signup" name="newsletter" value="1" title="<?php echo Mage::helper('newsletter')->__('Sign up for our newsletter') ?>" class="checkbox" />
@@ -279,7 +278,7 @@ Event.observe(window, 'load', function() {
                 </label>
             </p>
         <?php endif; ?>
-        -->
+
     </div>
 
     <div class="col-3">

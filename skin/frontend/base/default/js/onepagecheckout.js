@@ -113,7 +113,6 @@ OPC.prototype = {
                 isValid = false
             }
         }
-        $j('input[name*="tipopessoa"]:checked').click(); //ccd: bad hack: click artificial para habilitar/desabilitar campos (CPF/CNPJ)
         OPC.Messenger.clear('checkout-review-submit');
         $$('#checkout-review-submit .checkout-agreements input[type="checkbox"]').each(function (el) {
             if (!el.checked) {
@@ -728,8 +727,3 @@ window.onload = function () {
     })
 }
 
-/*
-    bugs:
-        - DOB e Gender obrigatórios com Pessoa Juridica
-
-*/

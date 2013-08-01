@@ -276,26 +276,6 @@ $has_addr	= $this->customerHasAddresses();
 </script>
 
 
-
-
-<script type="text/javascript">
-//<![CDATA[
-
-     /*One Step Checkout
-     Verifica se tem value no cep
-     */
-
-      var temcep = $j('input[name*="[postcode]"]').val();
-      if(temcep != ''){
-          buscarEndereco('<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)?>','billing');
-      }
-
-//]]>
-</script>
-
-
-
-
 <script type="text/javascript">
 //<![CDATA[
     // Adicionar validacao de cpf e cnpj ao campo Taxvat
