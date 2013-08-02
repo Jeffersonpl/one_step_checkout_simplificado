@@ -45,7 +45,7 @@ if (! $this->getQuote()->isVirtual()): ?>
             <div class="full">
 			    <label for="shipping:telephone">Telefone</label> <sup>*</sup>
 			    <div class="data_area">
-				    <input type="text" name="shipping[telephone]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getTelephone()) ?>" title="<?php echo $this->__('Telephone') ?>" class="t1" id="shipping:telephone" />
+				    <input type="text" name="shipping[telephone]" value="<?php echo $this->htmlEscape($this->getShipAddress()->getTelephone()) ?>" title="Telefone" class="t1" id="shipping:telephone" />
 			    </div>
             </div>
 
@@ -54,7 +54,7 @@ if (! $this->getQuote()->isVirtual()): ?>
 			<div class="full">
 				<label for="shipping:postcode" class="required">CEP</label> <sup>*</sup>
 				<div class="data_area">
-					<input maxlength="8" type="text" title="CEP" name="shipping[postcode]" id="shipping:postcode" value="<?php echo $this->htmlEscape($this->getShipAddress()->getPostcode()) ?>" class="t1 validate-zip-international required-entry" onchange="shipping.setSameAsBilling(false);" onblur="buscarEndereco(this.value);"/>
+					<input maxlength="8" type="text" title="CEP" name="shipping[postcode]" id="shipping:postcode" value="<?php echo $this->htmlEscape($this->getShipAddress()->getPostcode()) ?>" class="t1 validate-zip-international required-entry" onchange="shipping.setSameAsBilling(false);" onblur="buscarEndereco(this.value,'shipping:street1','shipping:street2','shipping:street4','shipping:city','shipping:region_id');"/>
 				</div>
 			</div>
 

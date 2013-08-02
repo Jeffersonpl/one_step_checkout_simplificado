@@ -565,9 +565,6 @@ class DeivisonArthur_OnepageCheckout_Model_Type_Geo
         $quote  = $this->getQuote();
         if ($quote->getIsMultiShipping())
             Mage::throwException($this->_help_obj->__('Invalid checkout type.'));
-
-        if (!Mage::helper('onepagecheckout')->isGuestCheckoutAllowed() && $quote->getCheckoutMethod() == self::GUEST)
-            Mage::throwException($this->_help_obj->__('Sorry, guest checkout is not allowed, please contact support.'));
     }
 
     public function saveOrder()
