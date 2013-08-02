@@ -9,16 +9,6 @@ class DeivisonArthur_OnepageCheckout_Helper_Data extends Mage_Core_Helper_Abstra
         return (bool)Mage::getStoreConfig('onepagecheckout/general/enabled');
     }
 
-    public function isGuestCheckoutAllowed()
-    {
-        return Mage::getStoreConfig('onepagecheckout/general/guest_checkout');
-    }
-
-    public function isShippingAddressAllowed()
-    {
-    	return Mage::getStoreConfig('onepagecheckout/general/shipping_address');
-    }
-
     public function getAgreeIds()
     {
         if (is_null($this->_agree))

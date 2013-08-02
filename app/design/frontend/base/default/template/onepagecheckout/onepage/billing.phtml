@@ -249,7 +249,7 @@ $has_addr	= $this->customerHasAddresses();
 	    </div>
 
     <?php
-    if (Mage::helper('onepagecheckout')->isShippingAddressAllowed() && $this->canShip()){
+    if ($this->canShip()){
     ?>
     	<input type="hidden" name="billing[use_for_shipping]" id="billing:use_for_shipping" value="<?php echo ($this->isUseBillingAddressForShipping())?'1':'0'; ?>" />
     <?php
@@ -261,9 +261,6 @@ $has_addr	= $this->customerHasAddresses();
     ?>
 	</div>
 </div>
-
-
-
 
 <script type="text/javascript">
 //<![CDATA[
