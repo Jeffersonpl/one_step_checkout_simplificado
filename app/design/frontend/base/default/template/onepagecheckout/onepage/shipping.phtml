@@ -26,9 +26,6 @@ if (! $this->getQuote()->isVirtual()): ?>
     <div class="form_fields">
     <?php if ($has_addr){ ?>
 		<div class="full">
-			<label>
-				<?php echo $this->__('Select a shipping address from your address book or enter a new address.') ?>
-			</label>
 			<div class="data_area">
 				<?php echo $this->getCustomerShipAddr() ?>
 			</div>
@@ -125,28 +122,9 @@ if (! $this->getQuote()->isVirtual()): ?>
 				</div>
 			</div>
 
-			<ul>
-			<?php
-			if ($logged && $has_addr){
-			?>
-				<li class="options">
-					<input type="checkbox" class="checkbox" name="shipping[save_in_address_book]" id="shipping:save_in_address_book" value="1" title="<?php echo $this->__('Save in address book') ?>" <?php if ($this->getShipAddress()->getSaveInAddressBook()){ echo ' checked="checked" ';}?> />
-					<label>
-						<?php echo $this->__('Save in address book') ?>
-					</label>
-				</li>
-			<?php
-			}
-			else
-			{
-			?>
-				<li class="no-display">
-					<input type="hidden" name="shipping[save_in_address_book]" value="1" />
-				</li>
-			<?php
-			}
-			?>
-			</ul>
+            <div class="no-display">
+                <input type="hidden" name="shipping[save_in_address_book]" value="1" />
+            </div>
         </div>
 	</div>
 </div>
