@@ -12,9 +12,7 @@ $has_addr	= $this->customerHasAddresses();
 <?php $this->setShowAddressFields(true);?>
 
 <div class="onepagecheckout_block">
-    <div class="op_block_title">
-		<?php	echo $this->__('Name & Address');	?>
-    </div>
+    <div class="op_block_title">Endereço de Cobrança</div>
     <div class="form_fields">
     <?php if ($has_addr){ ?>
         <div class="full">
@@ -197,6 +195,7 @@ $has_addr	= $this->customerHasAddresses();
 
 				<input type="hidden" name="billing[register_account]" value="1"/>
 
+            <?php if( ! $logged): ?>
 				<div class="two_fields" id="register-customer-password">
 					<div class="short">
 						<label for="billing:customer_password" class="required">Senha</label><sup>*</sup>
@@ -212,6 +211,7 @@ $has_addr	= $this->customerHasAddresses();
 					</div>
 					<div class='clr'></div>
 				</div>
+            <?php endif; ?>
 
 				<div class='clr'></div>
 
