@@ -283,16 +283,30 @@ BillingAddress.prototype = {
     newAddress: function (isNew) {
         if (isNew) {
             this.resetSelectedAddress();
-            Element.show('bill_form')
+            Element.show('bill_form');
         } else {
-            Element.hide('bill_form')
+            Element.hide('bill_form');
         }
     },
     resetSelectedAddress: function () {
         var selectElement = $('billing_customer_address');
         if (selectElement) {
-            selectElement.value = ''
+            selectElement.value = '';
         }
+        var formElements = [
+            $('billing:telephone'),
+            $('billing:celular'),
+            $('billing:postcode'),
+            $('billing:street1'),
+            $('billing:street2'),
+            $('billing:street3'),
+            $('billing:street4'),
+            $('billing:city'),
+            $('billing:region_id')
+        ];
+        formElements.each(function(elemento) {
+            elemento.clear();
+        });
     },
     setCreateAccount: function (flag) {
         if (flag) {
@@ -309,7 +323,7 @@ ShippingAddress.prototype = {
         $('shipping:country_id') && $('shipping:country_id').observe('change', function () {
             if ($('shipping:region_id')) {
                 $('shipping:region_id').value = '';
-                $('shipping:region_id')[0].selected = true
+                $('shipping:region_id')[0].selected = true;
             }
             checkout.update({
                 'shipping-method': 1
@@ -334,16 +348,31 @@ ShippingAddress.prototype = {
     newAddress: function (isNew) {
         if (isNew) {
             this.resetSelectedAddress();
-            Element.show('ship_form')
+            Element.show('ship_form');
         } else {
-            Element.hide('ship_form')
+            Element.hide('ship_form');
         }
     },
     resetSelectedAddress: function () {
         var selectElement = $('shipping_customer_address');
         if (selectElement) {
-            selectElement.value = ''
+            selectElement.value = '';
         }
+        var formElements = [
+            $('shipping:firstname'),
+            $('shipping:lastname'),
+            $('shipping:telephone'),
+            $('shipping:postcode'),
+            $('shipping:street1'),
+            $('shipping:street2'),
+            $('shipping:street3'),
+            $('shipping:street4'),
+            $('shipping:city'),
+            $('shipping:region_id')
+        ];
+        formElements.each(function(elemento) {
+            elemento.clear();
+        });
     },
     setSameAsBilling: function (flag) {
         $('shipping:same_as_billing').checked = flag;
@@ -353,9 +382,9 @@ ShippingAddress.prototype = {
             this.syncWithBilling();
             checkout.update({
                 'shipping-method': 1
-            })
+            });
         } else {
-            $('ship_address_block').show()
+            $('ship_address_block').show();
         }
     },
     syncWithBilling: function () {
@@ -368,25 +397,25 @@ ShippingAddress.prototype = {
                 if (arrElements[elemIndex].id) {
                     var sourceField = $(arrElements[elemIndex].id.replace(/^shipping:/, 'billing:'));
                     if (sourceField) {
-                        arrElements[elemIndex].value = sourceField.value
+                        arrElements[elemIndex].value = sourceField.value;
                     }
                 }
             }
             shippingRegionUpdater.update();
             $('shipping:region_id').value = $('billing:region_id').value;
-            $('shipping:region').value = $('billing:region').value
+            $('shipping:region').value = $('billing:region').value;
         } else {
-            $('shipping_customer_address').value = $('billing_customer_address').value
+            $('shipping_customer_address').value = $('billing_customer_address').value;
         }
     },
     setRegionValue: function () {
-        $('shipping:region').value = $('billing:region').value
+        $('shipping:region').value = $('billing:region').value;
     }
 };
 var ShippingMethod = Class.create();
 ShippingMethod.prototype = {
     initialize: function () {
-        this.addObservers()
+        this.addObservers();
     },
     addObservers: function () {
         $$('input[name="shipping_method"]').each(function (el) {
@@ -402,15 +431,15 @@ ShippingMethod.prototype = {
         var methods = document.getElementsByName('shipping_method');
         if (methods.length == 0) {
             OPC.Messenger.add(Translator.translate('Your order cannot be completed at this time as there is no shipping methods available for it. Please make neccessary changes in your shipping address.'), 'checkout-shipping-method-load', 'error');
-            return false
+            return false;
         }
         for (var i = 0; i < methods.length; i++) {
             if (methods[i].checked) {
-                return true
+                return true;
             }
         }
         OPC.Messenger.add(Translator.translate('Please specify shipping method.'), 'checkout-shipping-method-load', 'error');
-        return false
+        return false;
     }
 };
 var Payment = Class.create();
@@ -420,10 +449,10 @@ Payment.prototype = {
     beforeValidateFunc: $H({}),
     afterValidateFunc: $H({}),
     initialize: function (container) {
-        this.cnt = container
+        this.cnt = container;
     },
     addBeforeInitFunction: function (code, func) {
-        this.beforeInitFunc.set(code, func)
+        this.beforeInitFunc.set(code, func);
     },
     beforeInit: function () {
         (this.beforeInitFunc).each(function (init) {
@@ -436,33 +465,33 @@ Payment.prototype = {
         var elements = $(this.cnt).select('input');
         for (var i = 0; i < elements.length; i++) {
             if (elements[i].name == 'payment[method]') {
-                if (elements[i].checked) method = elements[i].value
+                if (elements[i].checked) method = elements[i].value;
             } else {
-                elements[i].disabled = true
+                elements[i].disabled = true;
             }
-            elements[i].setAttribute('autocomplete', 'off')
+            elements[i].setAttribute('autocomplete', 'off');
         }
         elements = $(this.cnt).select('select');
         for (var i = 0; i < elements.length; i++) {
             if (elements[i].name == 'payment[method]') {
-                if (elements[i].checked) method = elements[i].value
+                if (elements[i].checked) method = elements[i].value;
             } else {
-                elements[i].disabled = true
+                elements[i].disabled = true;
             }
             elements[i].setAttribute('autocomplete', 'off')
         }
         elements = $(this.cnt).select('textarea');
         for (var i = 0; i < elements.length; i++) {
             if (elements[i].name == 'payment[method]') {
-                if (elements[i].checked) method = elements[i].value
+                if (elements[i].checked) method = elements[i].value;
             } else {
-                elements[i].disabled = true
+                elements[i].disabled = true;
             }
-            elements[i].setAttribute('autocomplete', 'off')
+            elements[i].setAttribute('autocomplete', 'off');
         }
         if (method) this.switchMethod(method);
         this.afterInit();
-        this.initWhatIsCvvListeners()
+        this.initWhatIsCvvListeners();
     },
     addAfterInitFunction: function (code, func) {
         this.afterInitFunc.set(code, func)

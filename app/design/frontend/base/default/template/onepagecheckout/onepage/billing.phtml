@@ -110,7 +110,7 @@ $has_addr	= $this->customerHasAddresses();
             <div class="full">
                 <label for="billing:postcode" class="required">CEP</label><sup>*</sup>
                 <div class="data_area">
-                    <input maxlength="8" type="text" title="CEP" name="billing[postcode]" id="billing:postcode" value="<?php echo $this->htmlEscape($this->getBillAddress()->getPostcode()) ?>" class="t1 validate-zip-international required-entry" onblur="buscarEndereco(this.value,'street1','street2','street4','city','region_id');"/>
+                    <input maxlength="8" type="text" title="CEP" name="billing[postcode]" id="billing:postcode" value="<?php echo $this->htmlEscape($this->getBillAddress()->getPostcode()) ?>" class="t1 validate-zip-international required-entry" onblur="buscarEndereco(this.value,'billing:street1','billing:street2','billing:street4','billing:city','billing:region_id');"/>
                 </div>
             </div>
             <div class="clr"></div>
@@ -120,7 +120,7 @@ $has_addr	= $this->customerHasAddresses();
             <div class="full">
                 <label for="endereco" class="required">Endereço</label><sup>*</sup>
                 <div class="data_area">
-                    <input type="text" id="street1" name="billing[street][1]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getStreet(1)) ?>" title="Endereço" class="input-text t1 required-entry" />
+                    <input type="text" id="billing:street1" name="billing[street][1]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getStreet(1)) ?>" title="Endereço" class="input-text t1 required-entry" />
                 </div>
             </div>
            <!--
@@ -130,14 +130,14 @@ $has_addr	= $this->customerHasAddresses();
         					<div class="short">
         						<label for="billing:street2" class="required">Número<sup>*</sup></label>
         						<div class="data_area">
-            						<input type="text" id="street2" name="billing[street][2]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getStreet(2)) ?>" title="Número" class="input-text t1 required-entry" />
+            						<input type="text" id="billing:street2" name="billing[street][2]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getStreet(2)) ?>" title="Número" class="input-text t1 required-entry" />
         						</div>
         					</div>
 
             				<div class="short comp">
             					<label for="billing:street3">Complemento</label>
             					<div class="data_area">
-            						<input type="text" id="street3" name="billing[street][3]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getStreet(3)) ?>" title="Complemento" class="input-text t1" />
+            						<input type="text" id="billing:street3" name="billing[street][3]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getStreet(3)) ?>" title="Complemento" class="input-text t1" />
             					</div>
             				</div>
             </div>
@@ -148,7 +148,7 @@ $has_addr	= $this->customerHasAddresses();
 				<div class="full">
                     <label for="bairro" class="required">Bairro</label><sup>*</sup>
 					<div class="data_area">
-						<input type="text" id="street4" name="billing[street][4]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getStreet(4)) ?>" title="Bairro" class="input-text t1 required-entry" />
+						<input type="text" id="billing:street4" name="billing[street][4]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getStreet(4)) ?>" title="Bairro" class="input-text t1 required-entry" />
 					</div>
 				</div>
              <!--
@@ -161,7 +161,7 @@ $has_addr	= $this->customerHasAddresses();
 				<div class="short">
 					<label for="billing:city" class="required">Cidade</label><sup>*</sup>
 					<div class="data_area">
-						<input type="text" title="Cidade" name="billing[city]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getCity()) ?>" class="t1 required-entry" id="city" />
+						<input type="text" title="Cidade" name="billing[city]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getCity()) ?>" class="t1 required-entry" id="billing:city" />
 					</div>
 				</div>
              <!--
@@ -170,12 +170,12 @@ $has_addr	= $this->customerHasAddresses();
 				<div class="short">
 					<label for="billing:region_id" class="required">Estado</label><sup>*</sup>
 					<div class="data_area">
-						<select id="region_id" name="billing[region_id]" title="Estado" class="validate-select required-entry">
+						<select id="billing:region_id" name="billing[region_id]" title="Estado" class="validate-select required-entry">
 							<option value="">Selecione</option>
 						</select>
 						<script type="text/javascript">
 						//<![CDATA[
-							$('region_id').setAttribute('defaultValue',  "<?php echo $this->getBillAddress()->getRegionId() ?>");
+							$('billing:region_id').setAttribute('defaultValue',  "<?php echo $this->getBillAddress()->getRegionId() ?>");
 						//]]>
 						</script>
 						<input type="text" id="billing:region" name="billing[region]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getRegion()) ?>" title="Estado" class="t1 required-entry" />
@@ -239,7 +239,7 @@ $has_addr	= $this->customerHasAddresses();
 	var billing = new BillingAddress();
 	RegionUpdater.prototype.setMarkDisplay = function(){};
 	ZipUpdater.prototype._setPostcodeOptional = function(){};
-	var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'region_id', countryRegions, undefined, 'billing:postcode');
+	var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', countryRegions, undefined, 'billing:postcode');
 
 //]]>
 </script>
