@@ -1,9 +1,4 @@
-<script type="text/javascript" src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)?>frontend/base/default/deivison/jquery.js"></script>
-<script type="text/javascript">
-    var $j = jQuery.noConflict();
-</script>
-<script type="text/javascript" src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)?>frontend/base/default/deivison/deivison.js"></script>
-<script type="text/javascript" src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)?>frontend/base/default/deivison/lightbox.js"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/onepagecheckout.js') ?>"></script>
 
 <?php 
 $logged		= $this->isCustomerLoggedIn();
@@ -59,7 +54,7 @@ $has_addr	= $this->customerHasAddresses();
                           <div class="short">
           	                <label class="required">Identidade</label><sup>*</sup>
                               <div class="data_area">
-                                  <input type="text" name="billing[rg]" id="rg"  value="<?php echo $this->htmlEscape($this->getCustomer()->getRg()) ?>" title="Identidade" class="input-text t1 validate-number required-entry" />
+                                  <input type="text" name="billing[rg]" id="rg"  value="<?php echo $this->htmlEscape($this->getCustomer()->getRg()) ?>" title="Identidade" class="input-text t1 required-entry" />
                               </div>
                           </div>
                      <!--
@@ -68,7 +63,7 @@ $has_addr	= $this->customerHasAddresses();
                           <div class="short">
           	                <label class="required">CPF</label><sup>*</sup>
                               <div class="data_area">
-                                  <input type="text" name="billing[taxvat]" id="taxvat"  value="<?php echo $this->htmlEscape($this->getCustomer()->getTaxvat()) ?>" title="CPF" class="input-text t1 validate-number required-entry" />
+                                  <input type="text" name="billing[taxvat]" id="taxvat"  value="<?php echo $this->htmlEscape($this->getCustomer()->getTaxvat()) ?>" title="CPF" class="input-text t1 required-entry" />
                               </div>
                           </div>
             </div> <!-- END -->
@@ -89,7 +84,6 @@ $has_addr	= $this->customerHasAddresses();
             <div class="two_fields">
                 <div class="short">
                     <label for="billing:telephone" class="required">Telefone</label><sup>*</sup>
-                      
                     <div class="data_area">
                         <input type="text" name="billing[telephone]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getTelephone()) ?>" title="Telefone" class="t1 required-entry" id="billing:telephone" />
                     </div>
@@ -110,7 +104,7 @@ $has_addr	= $this->customerHasAddresses();
             <div class="full">
                 <label for="billing:postcode" class="required">CEP</label><sup>*</sup>
                 <div class="data_area">
-                    <input maxlength="8" type="text" title="CEP" name="billing[postcode]" id="billing:postcode" value="<?php echo $this->htmlEscape($this->getBillAddress()->getPostcode()) ?>" class="t1 validate-zip-international required-entry" onblur="buscarEndereco(this.value,'billing:street1','billing:street2','billing:street4','billing:city','billing:region_id');"/>
+                    <input type="text" title="CEP" name="billing[postcode]" id="billing:postcode" value="<?php echo $this->htmlEscape($this->getBillAddress()->getPostcode()) ?>" class="t1 validate-zip-international required-entry" onblur="buscarEndereco(this.value,'billing:street1','billing:street2','billing:street4','billing:city','billing:region_id');"/>
                 </div>
             </div>
             <div class="clr"></div>
@@ -241,13 +235,5 @@ $has_addr	= $this->customerHasAddresses();
 	ZipUpdater.prototype._setPostcodeOptional = function(){};
 	var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', countryRegions, undefined, 'billing:postcode');
 
-//]]>
-</script>
-
-
-<script type="text/javascript">
-//<![CDATA[
-    // Adicionar validacao de cpf e cnpj ao campo Taxvat
-    Validation.add('validar_cpf', 'O CPF informado \xE9 invalido', function(v){return validaCPF(v,0);});
 //]]>
 </script>

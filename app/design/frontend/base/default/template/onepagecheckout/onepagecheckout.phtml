@@ -23,7 +23,6 @@ $seq_http	= (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS']==='on');
 <script type="text/javascript">
 	var http_type	= '<?php if($seq_http){echo 'https';}else{echo 'http';}?>';
 </script>
-<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/onepagecheckout.js') ?>"></script>
 
 <script type="text/javascript">countryRegions = <?php echo $this->helper('directory')->getRegionJson() ?></script>
 
@@ -122,6 +121,70 @@ $seq_http	= (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS']==='on');
 <!---End of Forgot password -popup code -->
 
 <!---popup-box script -->
+
+<form action="" id="onepagecheckout_orderform">
+<div class="col3-set onepagecheckout_datafields">
+    <div class="col-1">
+        <?php echo $this->getChildHtml('billing.address') ?>
+        <?php echo $this->getChildHtml('shipping.address') ?>
+    </div>
+
+    <div class="col-2">
+        <?php echo $this->getChildHtml('shipping.method') ?>
+        <?php echo $this->getChildHtml('payment.method') ?>
+         <div id="checkout-coupon-discount-load">
+            <?php echo $this->getChildHtml('coupon') ?>
+        </div>
+
+        <?php if (Mage::getStoreConfig('onepagecheckout/general/comment')) : ?>
+		<div class="op_block_title">
+	    	<?php echo $this->helper('sales')->__('Comment') ?>
+	    </div>        
+        <div class="form_fields">
+            <div class="full">
+                <div class="data_area" id='comment-block'>
+                    <textarea name="order-comment" id="order-comment"><?php echo trim(Mage::getSingleton('customer/session')->getOrderCustomerComment()) ?></textarea>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+
+		<?php if (Mage::helper('onepagecheckout')->isSubscribeNewAllowed()) : ?>
+            <p class="newsletter">
+                <input type="hidden" checked="checked" id="newsletter-signup" name="newsletter" value="1" title="<?php echo Mage::helper('newsletter')->__('Sign up for our newsletter') ?>" class="checkbox" />
+                <label for="newsletter-signup">
+                    <?php echo Mage::helper('newsletter')->__('Sign up for our newsletter') ?>
+                </label>
+            </p>
+        <?php endif; ?>
+
+    </div>
+
+    <div class="col-3">
+        <?php echo $this->getChildHtml('review') ?>
+    </div>
+</div>
+</form>
+
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/maskedinput.min.js') ?>"></script>
+
+<script type="text/javascript">
+
+    var $j = jQuery.noConflict();
+
+    $j(document).ready(function($) {
+        $('input[name*="postcode"]').mask("99999-999");
+        $('input[name*="telephone"]').mask("(99) 9999999?99");
+        $('input[name*="celular"]').mask("(99) 9999999?99");
+        $('input[name*="taxvat"]').mask("999.999.999-99");
+        $('input[name*="rg"]').mask("99.999.999-*");
+    });
+</script>
+
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/lightbox.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/endereco.js') ?>"></script>
+
 <script type="text/javascript">
 
 var login;
@@ -181,7 +244,6 @@ function sendpassword() {
                 }
             }
         });
-
     }
 }
 
@@ -203,7 +265,6 @@ Event.observe(window, 'load', function() {
             table.hide();
             error.hide();
             loading.show();
-
 
             var form = $('onestepcheckout-login-form-detail');
             var url = '<?php echo $this->getUrl('onepagecheckout/index/login', array('_secure' => true)); ?>';
@@ -243,50 +304,6 @@ Event.observe(window, 'load', function() {
 });
 </script>
 
-<form action="" id="onepagecheckout_orderform">
-<div class="col3-set onepagecheckout_datafields">
-    <div class="col-1">
-        <?php echo $this->getChildHtml('billing.address') ?>
-        <?php echo $this->getChildHtml('shipping.address') ?>
-    </div>
-
-    <div class="col-2">
-        <?php echo $this->getChildHtml('shipping.method') ?>
-        <?php echo $this->getChildHtml('payment.method') ?>
-         <div id="checkout-coupon-discount-load">
-            <?php echo $this->getChildHtml('coupon') ?>
-        </div>
-
-        <?php if (Mage::getStoreConfig('onepagecheckout/general/comment')) : ?>
-		<div class="op_block_title">
-	    	<?php echo $this->helper('sales')->__('Comment') ?>
-	    </div>        
-        <div class="form_fields">
-            <div class="full">
-                <div class="data_area" id='comment-block'>
-                    <textarea name="order-comment" id="order-comment"><?php echo trim(Mage::getSingleton('customer/session')->getOrderCustomerComment()) ?></textarea>
-                </div>
-            </div>
-        </div>
-        <?php endif; ?>
-
-		<?php if (Mage::helper('onepagecheckout')->isSubscribeNewAllowed()) : ?>
-            <p class="newsletter">
-                <input type="hidden" checked="checked" id="newsletter-signup" name="newsletter" value="1" title="<?php echo Mage::helper('newsletter')->__('Sign up for our newsletter') ?>" class="checkbox" />
-                <label for="newsletter-signup">
-                    <?php echo Mage::helper('newsletter')->__('Sign up for our newsletter') ?>
-                </label>
-            </p>
-        <?php endif; ?>
-
-    </div>
-
-    <div class="col-3">
-        <?php echo $this->getChildHtml('review') ?>
-    </div>
-</div>
-</form>
-
 <script type="text/javascript">
 //<![CDATA[
     var checkout = new OPC('onepagecheckout_orderform', {
@@ -311,5 +328,3 @@ Event.observe(window, 'load', function() {
 
 //]]>
 </script>
-
-

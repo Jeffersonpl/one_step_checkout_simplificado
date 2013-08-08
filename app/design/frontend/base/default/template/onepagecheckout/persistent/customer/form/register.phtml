@@ -1,9 +1,3 @@
-<script type="text/javascript" src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)?>frontend/base/default/deivison/jquery.js"></script>
-<script type="text/javascript">
-    var $j = jQuery.noConflict();
-</script>
-<script type="text/javascript" src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)?>frontend/base/default/deivison/deivison.js"></script>
-
 <div class="account-create">
     <div class="page-title"><h1>Cadastro</h1></div>
 
@@ -31,14 +25,14 @@
                         <div class="field">
                             <label class="required"><em>*</em>Identidade</label>
                               <div class="input-box">
-                                  <input type="text" name="rg" id="rg"  title="Identidade" class="input-text validate-number required-entry" />
+                                  <input type="text" name="rg" id="rg"  title="Identidade" class="input-text required-entry" />
                               </div>
                         </div>
 
                         <div class="field">
                             <label for="taxvat" class="required"><em>*</em>CPF</label>
                             <div class="input-box">
-                                <input type="text" id="taxvat" name="taxvat" value="" title="CPF" class="input-text validate-number required-entry"  />
+                                <input type="text" id="taxvat" name="taxvat" title="CPF" class="input-text required-entry"  />
                             </div>
                         </div>
                     </div>
@@ -195,37 +189,34 @@
             <button type="submit" title="Enviar" class="button"><span><span>Enviar</span></span></button>
         </div>
     </form>
-
-    <script type="text/javascript">
-    //<![CDATA[
-        var dataForm = new VarienForm('form-validate', true);
-        <?php if($this->getShowAddressFields()): ?>
-        new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
-        <?php endif; ?>
-    //]]>
-    </script>
-
-
-    <script type="text/javascript">
-    //<![CDATA[
-        // Adicionar validacao de cpf e cnpj ao campo Taxvat
-        Validation.add('validar_cpf', 'O CPF informado \xE9 invalido', function(v){return validaCPF(v,0);});
-    //]]>
-    </script>
-
-    <script type="text/javascript">
-    //<![CDATA[
-            var existe;
-
-            /*Verifica se existe o Taxvat*/
-            existe = $j('input[name*="taxvat"]').length;
-
-            /*Se existe add a class validar_cpfcnpj*/
-            if( existe != ''){
-                $j('input[name*="taxvat"]').attr('class', 'validar_cpfcnpj input-text');
-                $j('input[name*="taxvat-old"]').attr('class', 'input-text');
-            }
-    //]]>
-    </script>
-
 </div>
+
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/maskedinput.min.js') ?>"></script>
+
+<script type="text/javascript">
+
+    var $j = jQuery.noConflict();
+
+    $j(document).ready(function($) {
+        $('input[name*="postcode"]').mask("99999-999");
+        $('input[name*="telephone"]').mask("(99) 9999999?99");
+        $('input[name*="celular"]').mask("(99) 9999999?99");
+        $('input[name*="taxvat"]').mask("999.999.999-99");
+        $('input[name*="rg"]').mask("99.999.999-*");
+    });
+</script>
+
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/lightbox.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/endereco.js') ?>"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    <?php if($this->getShowAddressFields()): ?>
+    new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
+    <?php endif; ?>
+//]]>
+</script>
+
+

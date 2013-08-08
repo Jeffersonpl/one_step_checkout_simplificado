@@ -1,10 +1,3 @@
-<script type="text/javascript" src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)?>frontend/base/default/deivison/jquery.js"></script>
-<script type="text/javascript">
-    var $j = jQuery.noConflict();
-</script>
-<script type="text/javascript" src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)?>frontend/base/default/deivison/deivison.js"></script>
-<script type="text/javascript" src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)?>frontend/base/default/deivison/lightbox.js"></script>
-
 <?php 
 
 $logged		= $this->isCustomerLoggedIn();
@@ -19,7 +12,7 @@ if (! $this->getQuote()->isVirtual()): ?>
         </label>
     </li>
 </ul>
-<div id="ship_address_block" class="onepagecheckout_block"<?php if($this->getShipAddress()->getSameAsBilling()){echo 'style="display: none;"';}?>>
+<div id="ship_address_block" class="onepagecheckout_block"<?php if($this->getShipAddress()->getSameAsBilling()){echo ' style="display: none;"';}?>>
 	<div class="op_block_title">
     	<?php echo $this->__('New Shipping Address') ?>
     </div>
@@ -51,7 +44,7 @@ if (! $this->getQuote()->isVirtual()): ?>
 			<div class="full">
 				<label for="shipping:postcode" class="required">CEP</label> <sup>*</sup>
 				<div class="data_area">
-					<input maxlength="8" type="text" title="CEP" name="shipping[postcode]" id="shipping:postcode" value="<?php echo $this->htmlEscape($this->getShipAddress()->getPostcode()) ?>" class="t1 validate-zip-international required-entry" onchange="shipping.setSameAsBilling(false);" onblur="buscarEndereco(this.value,'shipping:street1','shipping:street2','shipping:street4','shipping:city','shipping:region_id');"/>
+					<input type="text" title="CEP" name="shipping[postcode]" id="shipping:postcode" value="<?php echo $this->htmlEscape($this->getShipAddress()->getPostcode()) ?>" class="t1 validate-zip-international required-entry" onchange="shipping.setSameAsBilling(false);" onblur="buscarEndereco(this.value,'shipping:street1','shipping:street2','shipping:street4','shipping:city','shipping:region_id');"/>
 				</div>
 			</div>
 
@@ -135,12 +128,5 @@ if (! $this->getQuote()->isVirtual()): ?>
 //<![CDATA[
 	var shipping = new ShippingAddress('onepagecheckout_orderform');
 	var shippingRegionUpdater = new RegionUpdater('shipping:country_id', 'shipping:region', 'shipping:region_id', countryRegions, undefined, 'shipping:postcode');
-
-
-
-
-    // Adicionar validacao de cpf e cnpj ao campo Taxvat
-    Validation.add('validar_cpf', 'O CPF ou CNPJ informado \xE9 invalido', function(v){return validaCPF(v,0);});
-
 //]]>
 </script>

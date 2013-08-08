@@ -1,3 +1,17 @@
+/*  VERIFICAR UTILIZACAO DA FUNCAO POSTERIORMENTE
+ 
+    deivison 02
+    FUNÇÃO QUE EXECUTA PASSO A PASSO DE ATUALIZAÇÃO DOS CAMPOS PAYMENTS E REVIEW
+    -------------------------------------------------------------------------------------------------------------------------------
+    Essa função foi feita para atualização dos valores, caso haja desconto para pagamentos específicos como 10% pagamento no boleto
+    -------------------------------------------------------------------------------------------------------------------------------
+    Métodos de atualiação
+    'payment-method': 1,    <- Atualiza os meios de pagamentos
+    'shipping-method': 1,   <- Atualiza os métodos de envio
+    'review': 1             <- Atualiza o resumo da compra
+*/
+
+
 var OPC = Class.create();
 OPC.prototype = {
     initialize: function (form, urls, agreement) {
