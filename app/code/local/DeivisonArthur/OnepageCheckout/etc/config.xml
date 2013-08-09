@@ -16,36 +16,35 @@
     </admin>
 
     <global>
-       <resources>
-           <onepagecheckout_setup>
-              <setup>
-                 <module>DeivisonArthur_OnepageCheckout</module>
-                 <class>Mage_Customer_Model_Entity_Setup</class>
-              </setup>
-              <connection>
-                 <use>core_setup</use>
-              </connection>
-          </onepagecheckout_setup>
-          <onepagecheckout_write>
-            <connection>
-               <use>core_write</use>
-             </connection>
-          </onepagecheckout_write>
-          <onepagecheckout_read>
-            <connection>
-              <use>core_read</use>
-         </connection>
-        </onepagecheckout_read>
-       </resources>
 
+        <resources>
+            <onepagecheckout_setup>
+                <setup>
+                    <module>DeivisonArthur_OnepageCheckout</module>
+                    <class>Mage_Customer_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </onepagecheckout_setup>
+            <onepagecheckout_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </onepagecheckout_write>
+            <onepagecheckout_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </onepagecheckout_read>
+        </resources>
 
-        <!-- Adicionado -->
         <fieldsets>
             <sales_copy_order_billing_address>
                 <rg><to_order>*</to_order></rg>
                 <celular><to_order>*</to_order></celular>
             </sales_copy_order_billing_address>
-            
+
             <sales_copy_order_shipping_address>
                 <rg><to_order>*</to_order></rg>
                 <celular><to_order>*</to_order></celular>
@@ -62,8 +61,8 @@
             </sales_convert_order_address>
 
             <customer_address>
-                 <rg><to_quote_address>*</to_quote_address></rg>
-                 <celular><to_quote_address>*</to_quote_address></celular>
+                <rg><to_quote_address>*</to_quote_address></rg>
+                <celular><to_quote_address>*</to_quote_address></celular>
             </customer_address>
 
             <checkout_onepage_billing>
@@ -71,8 +70,6 @@
                 <celular><to_customer>*</to_customer></celular>
             </checkout_onepage_billing>
         </fieldsets>
-        <!-- fim -->
-
 
         <models>
             <onepagecheckout>
@@ -82,6 +79,7 @@
                 <class>DeivisonArthur_OnepageCheckout_Adminhtml_Model</class>
             </onepagecheckout_adminhtml>
         </models>
+
         <blocks>
             <checkout>
                 <rewrite>
@@ -92,6 +90,7 @@
                 <class>DeivisonArthur_OnepageCheckout_Block</class>
             </onepagecheckout>
         </blocks>
+
         <helpers>
             <checkout>
                 <rewrite>
@@ -102,9 +101,11 @@
                 <class>DeivisonArthur_OnepageCheckout_Helper</class>
             </onepagecheckout>
         </helpers>
+
     </global>
 
     <frontend>
+
         <routers>
             <onepagecheckout>
                 <use>standard</use>
@@ -114,24 +115,28 @@
                 </args>
             </onepagecheckout>
         </routers>
+
         <translate>
             <modules>
                 <DeivisonArthur_OnepageCheckout>
-                     <files>
-                          <default>DeivisonArthur_OnepageCheckout.csv</default>
-                     </files>
+                    <files>
+                        <default>DeivisonArthur_OnepageCheckout.csv</default>
+                    </files>
                 </DeivisonArthur_OnepageCheckout>
             </modules>
         </translate>
+
         <layout>
-             <updates>
-                  <onepagecheckout>
-                        <file>onepagecheckout.xml</file>
-                  </onepagecheckout>
-             </updates>
+            <updates>
+                <onepagecheckout>
+                    <file>onepagecheckout.xml</file>
+                </onepagecheckout>
+            </updates>
         </layout>
+
         <events>
-             <sales_model_service_quote_submit_after>
+
+            <sales_model_service_quote_submit_after>
                 <observers>
                     <onepagecheckout>
                         <type>model</type>
@@ -140,6 +145,7 @@
                     </onepagecheckout>
                 </observers>
             </sales_model_service_quote_submit_after>
+
             <sales_model_service_quote_submit_before>
                 <observers>
                     <onepagecheckout>
@@ -150,7 +156,7 @@
                 </observers>
             </sales_model_service_quote_submit_before>
 
-      		<controller_action_layout_render_before_checkout_cart_index>
+            <controller_action_layout_render_before_checkout_cart_index>
                 <observers>
                     <onepagecheckout>
                         <class>onepagecheckout/observer</class>
@@ -163,6 +169,7 @@
     </frontend>
 
     <adminhtml>
+
         <translate>
             <modules>
                 <IWD_OnepageCheckout>
@@ -172,6 +179,7 @@
                 </IWD_OnepageCheckout>
             </modules>
         </translate>
+
         <acl>
             <resources>
                 <admin>
@@ -198,21 +206,12 @@
         <onepagecheckout>
             <general>
                 <enabled>1</enabled>
-                <tracoativo>1</tracoativo>
                 <title>Finalize a sua compra</title>
                 <taxvat>1</taxvat>
                 <payment_method>akatus</payment_method>
                 <country>BR</country>
-                <habilitarcad>1</habilitarcad>
-                <guest_checkout>0</guest_checkout>
             </general>
 
-            <outrasopcoes>
-                <cpfcnpjregistro>required</cpfcnpjregistro>
-                <rgiregistro>required</rgiregistro>
-                <rgientrega>required</rgientrega>
-                <cpfentrega>required</cpfentrega>
-            </outrasopcoes>
             <agreements>
                 <enabled>0</enabled>
                 <output>minimal</output>
@@ -225,7 +224,9 @@
                 <city_file></city_file>
             </geo_ip>
         </onepagecheckout>
+
     </default>
+
     <admin>
         <routers>
             <onepagecheckout>
@@ -237,4 +238,5 @@
             </onepagecheckout>
         </routers>
     </admin>
+
 </config>
