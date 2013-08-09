@@ -1,7 +1,7 @@
 <?php
 
 $installer = $this;
-$installer->startSetup(); //inicia a instala��o
+$installer->startSetup(); //inicia a instalacao
 
 $tabela = $this->getTable('directory/country_region'); //pega o nome da tabela que cont�m os estados no magento
 
@@ -103,10 +103,6 @@ if(  @$estadoTeste[0]['code'] != "AC"  ){
         $installer->run($comando);
 };
 
-
-
-
-
 /*==============================================================================
  *
  *  Adiciona os campos RG, CPF, Celular
@@ -118,7 +114,7 @@ $tabela2 = $this->getTable('eav/attribute'); //pega o nome da tabela que cont�
 //Tabela onde � adionado os campos eav_attribute
 
 /*==============================================================================
- *  Testa par ver se o atributo rg j� existe no sistema
+ *  Testa par ver se o atributo rg ja existe no sistema
  * =============================================================================
  */
 $sqlTeste2 = "SELECT * FROM {$tabela2} WHERE attribute_code = 'rg'";
@@ -183,7 +179,7 @@ if(  @$estadoTeste2[0]['attribute_code'] != "rg"  ){
 };
 
 /*==============================================================================
- *  Testa par ver se o atributo celular j� existe no sistema
+ *  Testa par ver se o atributo celular ja existe no sistema
  * =============================================================================
  */
 $sqlTeste2 = "SELECT * FROM {$tabela2} WHERE attribute_code = 'celular'";
