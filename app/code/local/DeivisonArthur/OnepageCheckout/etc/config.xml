@@ -199,7 +199,7 @@
             <general>
                 <enabled>1</enabled>
                 <tracoativo>1</tracoativo>
-                <title>Finalize sua compra em 1 etapa</title>
+                <title>Finalize a sua compra</title>
                 <taxvat>1</taxvat>
                 <payment_method>akatus</payment_method>
                 <country>BR</country>
