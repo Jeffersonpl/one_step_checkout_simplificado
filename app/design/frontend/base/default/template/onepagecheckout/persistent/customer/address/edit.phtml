@@ -130,7 +130,7 @@
                 <?php if($this->isDefaultBilling()): ?>
                     <strong>Endere&ccedil;o de Cobran&ccedil;a (atual)</strong>
                 <?php elseif($this->canSetAsDefaultBilling()): ?>
-                    <input type="checkbox" id="primary_billing" name="default_billing" value="1" title="Utilizar tamb&eacute;m como endere&ccedil;o de cobran&ccedil;a padr&atilde;o" class="checkbox" /><label for="primary_billing">Utilizar tamb&eacute;m como endere&ccedil;o de cobran&ccedil;a padr&atilde;o</label>
+                    <input type="checkbox" id="primary_billing" name="default_billing" value="1" title="Utilizar como endere&ccedil;o de cobran&ccedil;a padr&atilde;o" class="checkbox" /><label for="primary_billing">Utilizar como endere&ccedil;o de cobran&ccedil;a padr&atilde;o</label>
                 <?php else: ?>
                     <input type="hidden" name="default_billing" value="1" />
                 <?php endif; ?>
@@ -140,7 +140,7 @@
                 <?php if($this->isDefaultShipping()): ?>
                     <strong>Endere&ccedil;o de Entrega (atual)</strong>
                 <?php elseif($this->canSetAsDefaultShipping()): ?>
-                    <input type="checkbox" id="primary_shipping" name="default_shipping" value="1" title="Utilizar tamb&eacute;m como endere&ccedil;o de entrega padr&atilde;o" class="checkbox" /><label for="primary_shipping">Utilizar tamb&eacute;m como endere&ccedil;o de entrega padr&atilde;o</label>
+                    <input type="checkbox" id="primary_shipping" name="default_shipping" value="1" title="Utilizar como endere&ccedil;o de entrega padr&atilde;o" class="checkbox" /><label for="primary_shipping">Utilizar como endere&ccedil;o de entrega padr&atilde;o</label>
                 <?php else: ?>
                     <input type="hidden" name="default_shipping" value="1" />
                 <?php endif; ?>
