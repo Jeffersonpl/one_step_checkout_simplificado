@@ -654,12 +654,12 @@ OPC.Window.prototype = {
         if (!this.centered) {
             this.center()
         }
-        $$('select').invoke('addClassName', 'onepagecheckout-hidden');
+        $$('select').invoke('addClassName', 'checkoutsimplificado-hidden');
         this.window.show()
     },
     hide: function () {
         this.window.hide();
-        $$('select').invoke('removeClassName', 'onepagecheckout-hidden')
+        $$('select').invoke('removeClassName', 'checkoutsimplificado-hidden')
     },
     update: function (content) {
         this.content.setStyle({
@@ -707,7 +707,7 @@ OPC.Window.prototype = {
     },
     _prepareMarkup: function () {
         this.window = new Element('div');
-        this.window.addClassName('onepagecheckout-window');
+        this.window.addClassName('checkoutsimplificado-window');
         this.window.update(this.config.markup).hide();
         this.content = this.window.select('.content')[0];
         this.close = this.window.select('.close')[0];
@@ -744,14 +744,14 @@ OPC.Window.prototype = {
     }
 };
 function open_login() {
-    $('onepagecheckout_forgotbox').hide();
-    $('onepagecheckout_loginbox').show()
+    $('checkoutsimplificado_forgotbox').hide();
+    $('checkoutsimplificado_loginbox').show()
 }function open_forgot() {
-    $('onepagecheckout_loginbox').hide();
-    $('onepagecheckout_forgotbox').show()
+    $('checkoutsimplificado_loginbox').hide();
+    $('checkoutsimplificado_forgotbox').show()
 }function close_login() {
-    $('onepagecheckout_forgotbox').hide();
-    $('onepagecheckout_loginbox').hide()
+    $('checkoutsimplificado_forgotbox').hide();
+    $('checkoutsimplificado_loginbox').hide()
 }function check_secure_url(url) {
     if (http_type == 'https') {
         var u1 = url.substr(0, 5);
