@@ -90,9 +90,9 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
 
     public function indexAction()
     {
-        if (!Mage::helper('checkoutsimplificado')->isOnepageCheckoutEnabled())
+        if (!Mage::helper('checkoutsimplificado')->isCheckoutSimplificadoEnabled())
         {
-            Mage::getSingleton('checkout/session')->addError($this->__('The one page checkout is disabled.'));
+            Mage::getSingleton('checkout/session')->addError($this->__('O Checkout Simplificado está desabilitado.'));
             $this->_redirect('checkout/cart');
             return;
         }

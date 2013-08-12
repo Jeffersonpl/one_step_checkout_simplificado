@@ -4,7 +4,7 @@ class DiegoSouza_CheckoutSimplificado_Block_Onepage_Link extends Mage_Core_Block
 {
     public function isOnepageCheckoutAllowed()
     {
-        return $this->helper('checkoutsimplificado')->isOnepageCheckoutEnabled();
+        return $this->helper('checkoutsimplificado')->isCheckoutSimplificadoEnabled();
     }
 
     public function checkEnable()

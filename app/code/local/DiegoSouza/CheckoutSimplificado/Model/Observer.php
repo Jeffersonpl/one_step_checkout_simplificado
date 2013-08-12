@@ -16,7 +16,7 @@ class DiegoSouza_CheckoutSimplificado_Model_Observer
     
 	public function setEmptyCartTemplate()
 	{
-		if (Mage::helper('checkoutsimplificado')->isOnepageCheckoutEnabled())
+		if (Mage::helper('checkoutsimplificado')->isCheckoutSimplificadoEnabled())
 		{
 			$cartHelper = Mage::helper('checkout/cart');
 			$layout = Mage::getSingleton('core/layout');

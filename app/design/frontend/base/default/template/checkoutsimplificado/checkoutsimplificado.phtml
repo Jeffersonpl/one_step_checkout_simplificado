@@ -1,18 +1,17 @@
 <div class="page-title">
     <h1 class='h1_opc'><?php echo Mage::getStoreConfig('checkoutsimplificado/general/title') ?></h1>
-    <?php if (! Mage::getSingleton('customer/session')->isLoggedIn()): ?>
 
-    <div class="login-reg clearfix">
-        <a style="padding:0 0 5px 0;display:block;float:left;" href="javascript:lightbox('gift-form')" id="lightboxLink" title="my caption">Já possui cadastro? Clique aqui e poupe tempo!</a>
-    </div>
-    
-	<?php 
-		echo $this->getChildHtml('customer.login');
-		echo $this->getChildHtml('customer.forgot');
-    ?>
+    <?php if (! Mage::getSingleton('customer/session')->isLoggedIn()): ?>
+        <div class="login-reg clearfix">
+            <a style="text-decoration:none;" href="javascript:lightbox('gift-form')" id="lightboxLink">Já possui cadastro? Clique aqui e poupe tempo!</a>
+        </div>
+        
+        <?php 
+            echo $this->getChildHtml('customer.login');
+            echo $this->getChildHtml('customer.forgot');
+        ?>
     <?php endif; ?>
 </div>
-<div class='ptdivline'></div>
 
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 
@@ -122,8 +121,8 @@ $seq_http	= (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS']==='on');
 
 <!---popup-box script -->
 
-<form action="" id="onepagecheckout_orderform">
-<div class="col3-set onepagecheckout_datafields">
+<form action="" id="checkoutsimplificado_orderform">
+<div class="col3-set checkoutsimplificado_datafields">
     <div class="col-1">
         <?php echo $this->getChildHtml('billing.address') ?>
         <?php echo $this->getChildHtml('shipping.address') ?>
@@ -306,7 +305,7 @@ Event.observe(window, 'load', function() {
 
 <script type="text/javascript">
 //<![CDATA[
-    var checkout = new OPC('onepagecheckout_orderform', {
+    var checkout = new OPC('checkoutsimplificado_orderform', {
     	save    : '<?php echo $this->getUrl('checkoutsimplificado/index/saveOrder', array('_secure'=>$seq_http)) ?>',
     	update  : '<?php echo $this->getUrl('checkoutsimplificado/index/updateCheckout', array('_secure'=>$seq_http)) ?>',
         success : '<?php echo $this->getUrl('checkoutsimplificado/index/success', array('_secure'=>$seq_http)) ?>',

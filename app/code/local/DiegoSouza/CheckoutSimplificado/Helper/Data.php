@@ -4,7 +4,7 @@ class DiegoSouza_CheckoutSimplificado_Helper_Data extends Mage_Core_Helper_Abstr
 {
     protected $_agree = null;
 
-    public function ischeckoutsimplificadoEnabled()
+    public function isCheckoutSimplificadoEnabled()
     {
         return (bool)Mage::getStoreConfig('checkoutsimplificado/general/enabled');
     }

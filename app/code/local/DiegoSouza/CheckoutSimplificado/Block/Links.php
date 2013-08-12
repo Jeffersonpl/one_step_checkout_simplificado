@@ -3,7 +3,7 @@ class DiegoSouza_CheckoutSimplificado_Block_Links extends Mage_Checkout_Block_Li
 {
     public function addCheckoutLink()
     {
-		if ($this->helper('checkoutsimplificado')->isOnepageCheckoutEnabled()) 
+		if ($this->helper('checkoutsimplificado')->isCheckoutSimplificadoEnabled()) 
         {
         	$parent = $this->getParentBlock();
 			if ($parent)

@@ -14,7 +14,7 @@ $has_addr	= $this->customerHasAddresses();
         </li>
     </ul>
 
-    <div id="ship_address_block" class="onepagecheckout_block"<?php if($this->getShipAddress()->getSameAsBilling()){echo ' style="display: none;"';}?>>
+    <div id="ship_address_block" class="checkoutsimplificado_block"<?php if($this->getShipAddress()->getSameAsBilling()){echo ' style="display: none;"';}?>>
 
         <div class="op_block_title"><?php echo $this->__('New Shipping Address') ?></div>
 
@@ -128,7 +128,7 @@ $has_addr	= $this->customerHasAddresses();
 
 <script type="text/javascript">
 //<![CDATA[
-	var shipping = new ShippingAddress('onepagecheckout_orderform');
+	var shipping = new ShippingAddress('checkoutsimplificado_orderform');
 	var shippingRegionUpdater = new RegionUpdater('shipping:country_id', 'shipping:region', 'shipping:region_id', countryRegions, undefined, 'shipping:postcode');
 //]]>
 </script>

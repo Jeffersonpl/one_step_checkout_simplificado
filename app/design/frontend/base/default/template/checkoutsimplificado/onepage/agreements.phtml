@@ -2,7 +2,7 @@
 <ol class="checkout-agreements">
 <?php $_i = 0; foreach ($_agree as $_a): ?>
     <li<?php echo ++$_i === count($_agree) ? ' class="last"' : ''?>>
-        <div id="onepagecheckout-agreement-<?php echo $_a->getId() ?>-window"
+        <div id="checkoutsimplificado-agreement-<?php echo $_a->getId() ?>-window"
             class="agreement-content"
             style="<?php echo ($_a->getContentHeight() ? 'height:' . $_a->getContentHeight() : '') ?> <?php echo ('minimal' === Mage::getStoreConfig('checkoutsimplificado/agreements/output')) ? 'display: none' : '' ?>"
         >
@@ -21,7 +21,7 @@
             <input type="checkbox" id="agreement-<?php echo $_a->getId()?>" name="agreement[<?php echo $_a->getId()?>]" value="1" title="<?php echo $this->htmlEscape($_a->getCheckboxText()) ?>" class="checkbox" />
             <?php if ('minimal' === Mage::getStoreConfig('checkoutsimplificado/agreements/output')) : ?>
                 <label for="agreement-<?php echo $_a->getId()?>">
-                    <a href="javascript:void(0)" class="onepagecheckout-agreement-<?php echo $_a->getId() ?>">
+                    <a href="javascript:void(0)" class="checkoutsimplificado-agreement-<?php echo $_a->getId() ?>">
                         <?php echo $this->htmlEscape($_a->getCheckboxText()) ?>
                     </a>
                 </label>
