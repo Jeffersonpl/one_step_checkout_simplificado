@@ -1,7 +1,7 @@
 .h1_opc{text-transform:uppercase;font-size:22px;color:#000;}
 
 .checkoutsimplificado_loginarea { margin: 10px 0 20px; }
-.op_login_area{width:200px;padding:10px;border:1px solid #ccc;margin-bottom:15px;}
+.op_login_area{width:240px;padding:30px;border:1px solid #ccc;margin-bottom:15px;}
 .op_login_area sup{color:#767676;font-size:100%;line-height:0;margin-left:3px;position:relative;top:6px;}
 .op_login_area .buttons-set{margin-top:10px;}
 .op_login_area .buttons-set a{color:#767676;}
@@ -30,10 +30,10 @@ color:#FFFFFF;font:bold 12px/20px Arial,Helvetica,sans-serif;height:20px !import
 
 .checkoutsimplificado_datafields .col-1 .form_fields .short {width:50%; float:left; }
 .checkoutsimplificado_datafields .col-1 .form_fields div.two_fields .data_area { width: 95%; }
-.checkoutsimplificado_datafields .col-1 .form_fields div.two_fields .short { margin-bottom:15px; }
+.checkoutsimplificado_datafields .col-1 .form_fields div.two_fields .short { margin-bottom:8px; }
 .checkoutsimplificado_datafields .col-1 .form_fields input.t1 { width: 95%; padding:2px; background:none repeat scroll 0 0 #FFFFFF;border:1px solid #B6B6B6;}
 .checkoutsimplificado_datafields .col-1 .form_fields select { width: 100%; }
-.checkoutsimplificado_datafields .col-1 .form_fields div.full { margin:0 0 15px; }
+.checkoutsimplificado_datafields .col-1 .form_fields div.full { margin:0 0 8px; }
 .checkoutsimplificado_datafields .col-1 .form_fields div.full .data_area { width: 100%; }
 .checkoutsimplificado_datafields .col-1 .form_fields div.full input.t1 { width: 95%; padding:2px; background:none repeat scroll 0 0 #FFFFFF;border:1px solid #B6B6B6;}
 .checkoutsimplificado_datafields .col-1 .form_fields div.full select { width: 97%; }
@@ -174,16 +174,29 @@ p.newsletter label{color:#8E8D8B;}
 /* IE7 fix */
 *:first-child+html .checkoutsimplificado-window { width: 500px; }
 
+#login-form .form_fields, #forgot-password-form .form_fields {
+    margin: 20px 0;
+}
 
-/* login-popup design */
-a.close{float:right;}
-#gift-form{background:#fff;padding:10px;border:2px solid #828282;min-height:160px;width:350px;border-radius:7px; height: auto;}
-.clear{clear: both;}
-.onestepcheckout-error{color:red;font-weight: normal;}
-button.login-btn{background-color: #66A094;padding: 5px;border:none;font-weight: bold;color:#fff;border:none;}
-.button-set {border: none;margin: 0px;}
-/* login-popup design */
-.input-box .v-fix #ccsave_expiration{width:152px;}
-.onestepcheckout-summary .total  {text-align: right !important}
-.onestepcheckout-totals .product-total .value .price{float:right !important}
-.grand-total .value .price{float:right !important}
+#login-form button, #forgot-password-form button {
+    min-width: 80px;
+}
+
+#login-form .buttons-set, #forgot-password-form .buttons-set {
+    padding-top: 15px;
+}
+
+#login-form .full {
+    margin-bottom: 5px;
+}
+
+#login-form input, #forgot-password-form input {
+    width: 98%;
+}
+
+#checkoutsimplificado_loginbox, #checkoutsimplificado_forgotbox {
+    background-color: #FFFFFF;
+    -webkit-box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.3);
+    -moz-box-shadow:    4px 4px 6px rgba(50, 50, 50, 0.3);
+    box-shadow:         4px 4px 6px rgba(50, 50, 50, 0.3);
+}

@@ -379,7 +379,7 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
                 if(!$customer->getId())
                 {
                 	$session->setForgottenEmail($email);
-                    $result['error'] = Mage::helper('customer')->__('This email address was not found in our records.');
+                    $result['error'] = Mage::helper('customer')->__('O e-mail informado não possui cadastro.');
                 }
                 else
                 {
@@ -389,7 +389,7 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
                         $customer->changePassword($new_pass, false);
                         $customer->sendPasswordReminderEmail();
                         $result['success'] = true;
-                        $result['message'] = Mage::helper('customer')->__('A new password has been sent.');
+                        $result['message'] = Mage::helper('customer')->__('Uma nova senha foi enviada.');
                     }
                     catch (Exception $e)
                     {
@@ -403,8 +403,8 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
     }
 
     public function loginAction() {
-        $username = $this->getRequest()->getPost('onestepcheckout_username', false);
-        $password = $this->getRequest()->getPost('onestepcheckout_password', false);
+        $username = $this->getRequest()->getPost('username', false);
+        $password = $this->getRequest()->getPost('password', false);
         $session = Mage::getSingleton('customer/session');
 
         $result = array(

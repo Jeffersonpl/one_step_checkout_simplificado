@@ -33,7 +33,7 @@ $has_addr	= $this->customerHasAddresses();
                 <div class='clr'></div>
 
                 <div class="full">
-                    <label for="billing:email" class="required"><?php echo $this->__('Email Address') ?></label><sup>*</sup>
+                    <label for="billing:email" class="required validate-email"><?php echo $this->__('Email Address') ?></label><sup>*</sup>
                     <div class="data_area">
                         <input type="text" name="billing[email]" value="<?php echo $this->htmlEscape($this->getCustomer()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="t1 validate-email required-entry" />
                     </div>

@@ -33,7 +33,7 @@ OPC.prototype = {
         $('login-form') && $('login-form').observe('submit', function (e) {
             Event.stop(e);
             if (!loginForm.validator.validate()) {
-                return
+                return;
             }
             $('login-please-wait').show();
             $('send2').setAttribute('disabled', 'disabled');
@@ -48,8 +48,13 @@ OPC.prototype = {
                     }
                     if (response.redirect) {
                         document.location = response.redirect;
-                        return
+                        return;
                     }
+                    if (response.success) {
+                        window.location.reload();
+                        return;
+                    }
+
                     $('login-please-wait').hide();
                     $('send2').removeAttribute('disabled');
                     $$('#login-form .buttons-set')[0].removeClassName('disabled').setOpacity(1)
@@ -710,6 +715,7 @@ OPC.Window.prototype = {
         }
     }
 };
+
 function open_login() {
     $('checkoutsimplificado_forgotbox').hide();
     $('checkoutsimplificado_loginbox').show()
@@ -719,7 +725,9 @@ function open_login() {
 }function close_login() {
     $('checkoutsimplificado_forgotbox').hide();
     $('checkoutsimplificado_loginbox').hide()
-}function check_secure_url(url) {
+}
+
+function check_secure_url(url) {
     if (http_type == 'https') {
         var u1 = url.substr(0, 5);
         if (u1 != 'https') {
@@ -729,6 +737,7 @@ function open_login() {
     }
     return url
 }
+
 window.onload = function () {
     checkout.update({
         'payment-method': 1,
