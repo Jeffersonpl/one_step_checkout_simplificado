@@ -555,6 +555,31 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
+    public function cepAction()
+    {
+        $numero = $this->getRequest()->getParam('numero');
+        $numero = str_replace('-', '', $numero);
+
+        if (preg_match('/^\d{8}$/', $numero)) {
+            $CEP_URL = "http://cep.correiocontrol.com.br/{NUMERO}.json";
+            $url = str_replace(array('{NUMERO}'), $numero, $CEP_URL);
+
+            $curlRequest = curl_init($url);
+            curl_setopt($curlRequest, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($curlRequest, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($curlRequest, CURLOPT_POST, 0);
+            curl_setopt($curlRequest, CURLOPT_RETURNTRANSFER, 1);
+              
+            $response = curl_exec($curlRequest);
+
+            if (curl_getinfo($curlRequest, CURLINFO_HTTP_CODE) === 200) {
+                echo $response;
+            }
+            
+            curl_close($curlRequest);
+        }
+    }
+
     protected function _saveOrderPurchase()
     {
     	$result = array();

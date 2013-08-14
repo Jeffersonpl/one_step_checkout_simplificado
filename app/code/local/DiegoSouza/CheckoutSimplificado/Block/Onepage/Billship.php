@@ -85,7 +85,7 @@ class DiegoSouza_CheckoutSimplificado_Block_Onepage_Billship extends Mage_Checko
     	
         $countryId = $obj->getCountryId();
         if (is_null($countryId)) {
-            $countryId = Mage::getStoreConfig('general/country/default');
+            $countryId = Mage::getStoreConfig('checkoutsimplificado/general/country');
         }
         $select = $this->getLayout()->createBlock('core/html_select')
         							->setId("{$addr_type}:country_id")->setName("{$addr_type}[country_id]")

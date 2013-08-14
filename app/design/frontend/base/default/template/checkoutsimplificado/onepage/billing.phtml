@@ -88,7 +88,7 @@ $has_addr	= $this->customerHasAddresses();
             <div class="full">
                 <label for="billing:postcode" class="required">CEP</label><sup>*</sup>
                 <div class="data_area">
-                    <input type="text" title="CEP" name="billing[postcode]" id="billing:postcode" value="<?php echo $this->htmlEscape($this->getBillAddress()->getPostcode()) ?>" class="t1 validate-zip-international required-entry" onblur="buscarEndereco(this.value,'billing:street1','billing:street2','billing:street4','billing:city','billing:region_id');"/>
+                <input type="text" title="CEP" name="billing[postcode]" id="billing:postcode" value="<?php echo $this->htmlEscape($this->getBillAddress()->getPostcode()) ?>" class="t1 validate-zip-international required-entry" onblur="buscarEndereco('<?php echo Mage::getBaseUrl(); ?>', this.value,'billing:street1','billing:street2','billing:street4','billing:city','billing:region_id');"/>
                 </div>
             </div>
 

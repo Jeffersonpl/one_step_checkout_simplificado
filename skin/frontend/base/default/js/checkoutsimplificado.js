@@ -1,17 +1,3 @@
-/*  VERIFICAR UTILIZACAO DA FUNCAO POSTERIORMENTE
- 
-    deivison 02
-    FUNÇÃO QUE EXECUTA PASSO A PASSO DE ATUALIZAÇÃO DOS CAMPOS PAYMENTS E REVIEW
-    -------------------------------------------------------------------------------------------------------------------------------
-    Essa função foi feita para atualização dos valores, caso haja desconto para pagamentos específicos como 10% pagamento no boleto
-    -------------------------------------------------------------------------------------------------------------------------------
-    Métodos de atualiação
-    'payment-method': 1,    <- Atualiza os meios de pagamentos
-    'shipping-method': 1,   <- Atualiza os métodos de envio
-    'review': 1             <- Atualiza o resumo da compra
-*/
-
-
 var OPC = Class.create();
 OPC.prototype = {
     initialize: function (form, urls, agreement) {
@@ -745,47 +731,4 @@ window.onload = function () {
         'review': 1
     })
 }
-
-Validation.add('cpf', 'Por favor preencha um CPF válido', function(value) {
-    value = value.replace(/[-\.]/g, '');
-
-    if (value.length != 11 || 
-        value == "00000000000" || value == "11111111111" || 
-        value == "22222222222" || value == "33333333333" || 
-        value == "44444444444" || value == "55555555555" || 
-        value == "66666666666" || value == "77777777777" || 
-        value == "88888888888" ||value == "99999999999") {
-            return false;
-        }
-
-    var dv = value.substr(9,2);
-    var value = value.substr(0,9);
-    var i;
-    var d1 = 0;
-    var v = false;
-    for (i = 0; i < 9; i++){
-        d1 += value.charAt(i)*(10-i);
-    }
-    if (d1 == 0) {
-        return false;
-    }
-    d1 = 11 - (d1 % 11);
-    if (d1 > 9) d1 = 0;
-    if (dv.charAt(0) != d1){
-        return false;
-    }
-    d1 *= 2;
-    for (i = 0; i < 9; i++){
-        d1 += value.charAt(i)*(11-i);
-    }
-    d1 = 11 - (d1 % 11);
-    if (d1 > 9) d1 = 0;
-    if (dv.charAt(1) != d1){
-        return false;
-    }
-    if (!v) {
-        return true;
-    }
-
-});
 

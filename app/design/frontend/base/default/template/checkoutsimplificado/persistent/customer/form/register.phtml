@@ -74,7 +74,7 @@
                         <div class="field">
                             <label for="zip" class="required"><em>*</em>CEP</label>
                             <div class="input-box">
-                                <input type="text" name="postcode" value="<?php echo $this->escapeHtml($this->getFormData()->getPostcode()) ?>" title="CEP" id="zip" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" onblur="buscarEndereco(this.value,'street1','street2','street4','city','region_id');" />
+                                <input type="text" name="postcode" value="<?php echo $this->escapeHtml($this->getFormData()->getPostcode()) ?>" title="CEP" id="zip" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" onblur="buscarEndereco('<?php echo Mage::getBaseUrl(); ?>', this.value,'street1','street2','street4','city','region_id');" />
                             </div>
                         </div>
                     </li>
@@ -125,12 +125,6 @@
                                 <select id="region_id" name="region_id" title="Estado" class="validate-select" style="display:none;">
                                     <option value="">Selecione</option>
                                 </select>
-
-                                <script type="text/javascript">
-                                //<![CDATA[
-                                    $('region_id').setAttribute('defaultValue', "<?php echo $this->getFormData()->getRegionId() ?>");
-                                //]]>
-                                </script>
 
                                 <input type="text" id="region" name="region" value="<?php echo $this->escapeHtml($this->getRegion()) ?>" title="<?php echo $this->__('State/Province') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" style="display:none;" />
                             </div>
@@ -205,7 +199,6 @@
 
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/maskedinput.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/checkoutsimplificado.js') ?>"></script>
 
 <script type="text/javascript">
 
@@ -221,13 +214,15 @@
 
 </script>
 
-<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/endereco.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/funcoes.js') ?>"></script>
 
 <script type="text/javascript">
 //<![CDATA[
     var dataForm = new VarienForm('form-validate', true);
     <?php if($this->getShowAddressFields()): ?>
+    $('country').setValue('<?php echo Mage::getStoreConfig('checkoutsimplificado/general/country'); ?>');
     new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
+    $j('label[for=region_id]').addClass('required').html("<em>*</em>Estado");
     <?php endif; ?>
 //]]>
 </script>
