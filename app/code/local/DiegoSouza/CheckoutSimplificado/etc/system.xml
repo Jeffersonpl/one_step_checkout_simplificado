@@ -10,7 +10,7 @@
     <sections>
 
         <checkoutsimplificado translate="label" module="checkoutsimplificado">
-            <label><![CDATA[ <div style="height: 33px; "><img src="http://onestepcheckout.com.br/img/cartOSC.png" style="float:left; "/><div style="padding-top:8px; width: 220px">&nbsp;One Step Checkout Pro</div></div>]]></label>
+            <label><![CDATA[<p>Configurar Módulo</p>]]></label>
             <tab>iwd</tab>
             <frontend_type>text</frontend_type>
             <sort_order>10</sort_order>
@@ -20,7 +20,7 @@
 
             <groups>
                 <general translate="label" module="core">
-                    <label>Configurações</label>
+                    <label>Opções de Configuração</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
