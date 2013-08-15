@@ -24,6 +24,10 @@ Esse módulo será versionado adequadamente, com numeração incremental e tags,
 
 ### Comparativo
 
+Para ter uma idéia (aproximada), somando as linhas de código em arquivos (php, phtml, css, js, xml e csv) com o utilitário wc no pré lançamento:
+
+- *OSC Brasil:* 23.584 linhas
+- *OSC Simplificado:* 2.522 linhas
 
 ### Referências
 
