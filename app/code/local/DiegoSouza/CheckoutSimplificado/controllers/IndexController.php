@@ -27,9 +27,9 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
 
     protected function _expireAjax()
     {
-        if (!$this->getOnepagecheckout()->getQuote()->hasItems()
-            || $this->getOnepagecheckout()->getQuote()->getHasError()
-            || $this->getOnepagecheckout()->getQuote()->getIsMultiShipping()) {
+        if (!$this->getCheckoutSimplificado()->getQuote()->hasItems()
+            || $this->getCheckoutSimplificado()->getQuote()->getHasError()
+            || $this->getCheckoutSimplificado()->getQuote()->getIsMultiShipping()) {
             $this->_ajaxRedirectResponse();
             return true;
         }
@@ -83,7 +83,7 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
         return $layout->getBlock('checkout.review')->toHtml();
     }
 
-    public function getOnepagecheckout()
+    public function getCheckoutSimplificado()
     {
         return Mage::getSingleton('checkoutsimplificado/type_geo');
     }
@@ -97,7 +97,7 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
             return;
         }
                 
-        $quote = $this->getOnepagecheckout()->getQuote();
+        $quote = $this->getCheckoutSimplificado()->getQuote();
         if (!$quote->hasItems() || $quote->getHasError()) {
             $this->_redirect('checkout/cart');
             return;
@@ -112,7 +112,7 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
         Mage::getSingleton('checkout/session')->setCartWasUpdated(false);
         Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', array('_secure'=>true)));
 
-        $this->getOnepagecheckout()->initDefaultData()->initCheckout();
+        $this->getCheckoutSimplificado()->initDefaultData()->initCheckout();
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
         $title	= Mage::getStoreConfig('checkoutsimplificado/general/title');
@@ -129,7 +129,7 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
 			return;
     	}
     	
-        $session = $this->getOnepagecheckout()->getCheckout();
+        $session = $this->getCheckoutSimplificado()->getCheckout();
         if (!$session->getLastSuccessQuoteId()) {
             $this->_redirect('checkout/cart');
             return;
@@ -159,8 +159,8 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
 
     public function failureAction()
     {
-        $lastQuoteId = $this->getOnepagecheckout()->getCheckout()->getLastQuoteId();
-        $lastOrderId = $this->getOnepagecheckout()->getCheckout()->getLastOrderId();
+        $lastQuoteId = $this->getCheckoutSimplificado()->getCheckout()->getLastQuoteId();
+        $lastOrderId = $this->getCheckoutSimplificado()->getCheckout()->getLastOrderId();
 
         if (!$lastQuoteId || !$lastOrderId) {
             $this->_redirect('checkout/cart');
@@ -178,7 +178,7 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
         }
         $addressId = $this->getRequest()->getParam('address', false);
         if ($addressId) {
-            $address = $this->getOnepagecheckout()->getAddress($addressId);
+            $address = $this->getCheckoutSimplificado()->getAddress($addressId);
 
             if (Mage::getSingleton('customer/session')->getCustomer()->getId() == $address->getCustomerId()) {
                 $this->getResponse()->setHeader('Content-type', 'application/x-json');
@@ -196,7 +196,7 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
         }
 		/*********** DISCOUNT CODES **********/
  
-        $quote 				= $this->getOnepagecheckout()->getQuote();
+        $quote 				= $this->getCheckoutSimplificado()->getQuote();
         $couponData 		= $this->getRequest()->getPost('coupon', array());
         $processCoupon 		= $this->getRequest()->getPost('process_coupon', false);
        
@@ -246,16 +246,16 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
                 $bill_data['email'] = trim($bill_data['email']);
             }
             
-            $bill_result = $this->getOnepagecheckout()->saveBilling($bill_data, $bill_addr_id, false);
+            $bill_result = $this->getCheckoutSimplificado()->saveBilling($bill_data, $bill_addr_id, false);
 
             if (!isset($bill_result['error']))
             {
                 $pmnt_data = $this->getRequest()->getPost('payment', array());
-                $this->getOnepagecheckout()->usePayment(isset($pmnt_data['method']) ? $pmnt_data['method'] : null);
+                $this->getCheckoutSimplificado()->usePayment(isset($pmnt_data['method']) ? $pmnt_data['method'] : null);
 
                 $result['update_section']['payment-method'] = $this->_getPaymentMethodsHtml();
 
-                if (isset($bill_data['use_for_shipping']) && $bill_data['use_for_shipping'] == 1 && !$this->getOnepagecheckout()->getQuote()->isVirtual())
+                if (isset($bill_data['use_for_shipping']) && $bill_data['use_for_shipping'] == 1 && !$this->getCheckoutSimplificado()->getQuote()->isVirtual())
 				{
                     $result['update_section']['shipping-method'] = $this->_getShippingMethodsHtml();
                     $result['duplicateBillingInfo'] = 'true';
@@ -273,11 +273,11 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
         $ship_addr_id = $this->getRequest()->getPost('shipping_address_id', false);
         $ship_method	= $this->getRequest()->getPost('shipping_method', false);
 
-        if (!$ship_updated && !$this->getOnepagecheckout()->getQuote()->isVirtual())
+        if (!$ship_updated && !$this->getCheckoutSimplificado()->getQuote()->isVirtual())
         {
             if ($this->_checkChangedAddress($ship_data, 'Shipping', $ship_addr_id) || $ship_method) 
             {
-                $ship_result = $this->getOnepagecheckout()->saveShipping($ship_data, $ship_addr_id, false);
+                $ship_result = $this->getCheckoutSimplificado()->saveShipping($ship_data, $ship_addr_id, false);
 
                 if (!isset($ship_result['error']))
                 {
@@ -289,7 +289,7 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
         $check_shipping_diff	= false;
 
         // check how many shipping methods exist
-        $rates = Mage::getModel('sales/quote_address_rate')->getCollection()->setAddressFilter($this->getOnepagecheckout()->getQuote()->getShippingAddress()->getId())->toArray();
+        $rates = Mage::getModel('sales/quote_address_rate')->getCollection()->setAddressFilter($this->getCheckoutSimplificado()->getQuote()->getShippingAddress()->getId())->toArray();
         if(count($rates['items'])==1)
         {
         	if($rates['items'][0]['code']!=$ship_method)
@@ -304,16 +304,16 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
 
 // get prev shipping method
 		if($check_shipping_diff){
-			$shipping = $this->getOnepagecheckout()->getQuote()->getShippingAddress();
+			$shipping = $this->getCheckoutSimplificado()->getQuote()->getShippingAddress();
 			$shippingMethod_before = $shipping->getShippingMethod();
 		}
 
-        $this->getOnepagecheckout()->useShipping($ship_method);
+        $this->getCheckoutSimplificado()->useShipping($ship_method);
 
-        $this->getOnepagecheckout()->getQuote()->collectTotals()->save();
+        $this->getCheckoutSimplificado()->getQuote()->collectTotals()->save();
 
 		if($check_shipping_diff){        
-			$shipping = $this->getOnepagecheckout()->getQuote()->getShippingAddress();
+			$shipping = $this->getCheckoutSimplificado()->getQuote()->getShippingAddress();
 			$shippingMethod_after = $shipping->getShippingMethod();
         
 	        if($shippingMethod_before != $shippingMethod_after)
@@ -436,7 +436,7 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
         try {
             $bill_data = $this->_filterPostData($this->getRequest()->getPost('billing', array()));
             
-            $result = $this->getOnepagecheckout()->saveBilling($bill_data,$this->getRequest()->getPost('billing_address_id', false));
+            $result = $this->getCheckoutSimplificado()->saveBilling($bill_data,$this->getRequest()->getPost('billing_address_id', false));
             if ($result)
             {
             	$result['error_messages'] = $result['message'];
@@ -446,9 +446,9 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
                 return;
             }
 
-            if ((!$bill_data['use_for_shipping'] || !isset($bill_data['use_for_shipping'])) && !$this->getOnepagecheckout()->getQuote()->isVirtual())
+            if ((!$bill_data['use_for_shipping'] || !isset($bill_data['use_for_shipping'])) && !$this->getCheckoutSimplificado()->getQuote()->isVirtual())
             {
-                $result = $this->getOnepagecheckout()->saveShipping($this->_filterPostData($this->getRequest()->getPost('shipping', array())),$this->getRequest()->getPost('shipping_address_id', false));
+                $result = $this->getCheckoutSimplificado()->saveShipping($this->_filterPostData($this->getRequest()->getPost('shipping', array())),$this->getRequest()->getPost('shipping_address_id', false));
                 if ($result)
                 {
                 	$result['error_messages'] = $result['message'];
@@ -483,7 +483,7 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
 
             if(!isset($result['error']))
             {
-                Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method', array('request'=>$this->getRequest(), 'quote'=>$this->getOnepagecheckout()->getQuote()));
+                Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method', array('request'=>$this->getRequest(), 'quote'=>$this->getCheckoutSimplificado()->getQuote()));
                 $this->_subscribeNews();
             }
 
@@ -493,10 +493,10 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
             {
             	$pmnt_data = $this->getRequest()->getPost('payment', false);
                 if ($pmnt_data)
-                    $this->getOnepagecheckout()->getQuote()->getPayment()->importData($pmnt_data);
+                    $this->getCheckoutSimplificado()->getQuote()->getPayment()->importData($pmnt_data);
 
-                $this->getOnepagecheckout()->saveOrder();
-                $redirectUrl = $this->getOnepagecheckout()->getCheckout()->getRedirectUrl();
+                $this->getCheckoutSimplificado()->saveOrder();
+                $redirectUrl = $this->getCheckoutSimplificado()->getCheckout()->getRedirectUrl();
 
                 $result['success'] = true;
                 $result['error']   = false;
@@ -506,20 +506,20 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
         catch (Mage_Core_Exception $e)
         {
             Mage::logException($e);
-            Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepagecheckout()->getQuote(), $e->getMessage());
+            Mage::helper('checkout')->sendPaymentFailedEmail($this->getCheckoutSimplificado()->getQuote(), $e->getMessage());
 
             $result['error_messages'] = $e->getMessage();
             $result['error'] = true;
             $result['success'] = false;
 
-            $goto_section = $this->getOnepagecheckout()->getCheckout()->getGotoSection();
+            $goto_section = $this->getCheckoutSimplificado()->getCheckout()->getGotoSection();
             if ($goto_section)
             {
-            	$this->getOnepagecheckout()->getCheckout()->setGotoSection(null);
+            	$this->getCheckoutSimplificado()->getCheckout()->setGotoSection(null);
                 $result['goto_section'] = $goto_section;
             }
 
-            $update_section = $this->getOnepagecheckout()->getCheckout()->getUpdateSection();
+            $update_section = $this->getCheckoutSimplificado()->getCheckout()->getUpdateSection();
             if ($update_section)
             {
                 if (isset($this->_sectionUpdateFunctions[$update_section]))
@@ -532,20 +532,20 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
                         'html' => $this->$updateSectionFunction()
                     );
                 }
-                $this->getOnepagecheckout()->getCheckout()->setUpdateSection(null);
+                $this->getCheckoutSimplificado()->getCheckout()->setUpdateSection(null);
             }
 
-            $this->getOnepagecheckout()->getQuote()->save();
+            $this->getCheckoutSimplificado()->getQuote()->save();
         } 
         catch (Exception $e)
         {
             Mage::logException($e);
-            Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepagecheckout()->getQuote(), $e->getMessage());
+            Mage::helper('checkout')->sendPaymentFailedEmail($this->getCheckoutSimplificado()->getQuote(), $e->getMessage());
             $result['error_messages'] = Mage::helper('checkout')->__('There was an error processing your order. Please contact support or try again later.');
             $result['error']    = true;
             $result['success']  = false;
             
-            $this->getOnepagecheckout()->getQuote()->save();
+            $this->getCheckoutSimplificado()->getQuote()->save();
         }
 
         if (isset($redirectUrl)) {
@@ -587,9 +587,9 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
         try 
         {
             $pmnt_data = $this->getRequest()->getPost('payment', array());
-            $result = $this->getOnepagecheckout()->savePayment($pmnt_data);
+            $result = $this->getCheckoutSimplificado()->savePayment($pmnt_data);
 
-            $redirectUrl = $this->getOnepagecheckout()->getQuote()->getPayment()->getCheckoutRedirectUrl();
+            $redirectUrl = $this->getCheckoutSimplificado()->getQuote()->getPayment()->getCheckoutRedirectUrl();
             if ($redirectUrl)
             {
                 $result['redirect'] = $redirectUrl;
@@ -655,7 +655,7 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
     protected function _checkChangedAddress($data, $addr_type = 'Billing', $addr_id = false)
     {
     	$method	= "get{$addr_type}Address";
-        $address = $this->getOnepagecheckout()->getQuote()->{$method}();
+        $address = $this->getCheckoutSimplificado()->getQuote()->{$method}();
 
         if(!$addr_id)
         {

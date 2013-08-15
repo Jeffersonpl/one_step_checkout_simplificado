@@ -9,7 +9,7 @@
                             <config>
                                 <children>
                                     <checkoutsimplificado translate="title" module="checkoutsimplificado">
-                                        <title>Projeto Checkout Simplificado</title>
+                                        <title>Projeto One Step Checkout Simplificado</title>
                                     </checkoutsimplificado>
                                 </children>
                             </config>

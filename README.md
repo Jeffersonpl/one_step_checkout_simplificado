@@ -1,48 +1,32 @@
-Módulo OSC-Magento-Brasil 4.0 Pro - Agora Free! – Normatização do módulo para o padrão brasileiro
-=================
-O projeto OCS-MAgento-Brasil é uma iniciativa para traduzir e adaptar o módulo free de OSC(One Step Checkout) para Magento chamado IWD OnePageCheckout. 
+## One Step Checkout Simplificado
 
-Oque esse módulo irá fazer?
-=================
-Com o módulo OSC-Magento-Brasil irá se ter o meio mais famoso de checkout do Magento conhecido por OSC(One Step Checkout) e iremos fazer outros ajustes, como:
+Esse projeto nasceu como um fork do módulo One Step Checkout Brasil (https://github.com/deivisonarthur/OSC-Magento-Brasil-4-Pro).
 
-* Tradução dos Campos do formulário. (feito!)
-* Inclusão dos estados brasileiros. (feito!)
-* Remodelação do campo endereço do magento de 4 linhas. Dividindo e formatando para Endereço, Número, Bairro e Cidade. (feito!)
-* Utilização do campo taxvat por padrão como campo de CPF/CNPJ. (feito!)
-* Busca do endereço por ajax direto do site dos Correios. (feito!)
-* Formatação dos campos por máscara. Exe: Telefone com 9 ou 8 dígitos (99) ?9999-9999. (feito!)
-* Inclusão do campo tipo pessoa (Física ou Jurídica) (feito!)
-* IE(Inscrição Estadual) para gereção da NFE (feito!)
-* Inclusão do campo RG(Identidade) (feito!)
-* Opção de desligar todos os campos (feito!)
-* Opção de atribuição de obrigatório em todos os campos (feito!)
-* E outras coisas mais
+### Motivações
 
-Também pretendo implementar opções de segurança, como:
+O módulo que serviu de base possui muitos parâmetros (pouco utilizados na maioria dos casos) e código com pouca legibilidade, o que tende a gerar/manter muitos bugs e dificultar a manutenção. Essa é a principal motivação para o surgimento do One Step Checkout Simplificado.
 
-* Detecção de utilização de proxy com envio de email ao administrador
-* Detecção de compras suspeitas com envio de email ao administrador (Irá verificar por Geolocalização local onde foi feito a compra e bater com o local de entrega)
-* Integração com o sistema de detecção de fraude Maxmind (http://www.maxmind.com)
+Outro ponto a ser considerado é que atualmente existem 2 repositórios ativos, o que confunde a maioria dos usuários:
 
-veja mais dicas sobre análise de risco e fraude no Magento em:
-http://www.deivison.com.br/blog/2012/07/25/modulo-de-analise-de-risco-e-fraude-no-magento-sem-mensalidade/
+- https://github.com/deivisonarthur/OSC-Magento-Brasil-4-Pro
+- https://github.com/deivisonarthur/OSC-Magento-Brasil
 
-Site e comunidade do projeto:
-=================
-http://onestepcheckout.com.br/
+### Características
 
-Desenvolvedores e mantenedores do projeto Módulo OSC-Magento-Brasil:
-=================
-* Deivison Arthur Lemos Serpa 
-http://www.deivison.com.br
-* Denis Colli Spalenza 
-http://www.xpdev.com.br
+Esse módulo será versionado adequadamente, com numeração incremental e tags, o que não vem ocorrendo no projeto em que foi baseado. Isso facilitará a correção de bugs e a evolução contínua e organizada. Além disso, também conta com as seguintes correções e recursos:
 
-Créditos:
-=================
-* Projeto base de OSC utilizado: http://www.interiorwebdesign.com/magento/magento-one-step-checkout-module.html
-* Instação dos estados por Alex Braga: http://www.alexbraga.net
-* Script base para implementação da busca do CEP por Ajax: http://www.pinceladasdaweb.com.br/blog/2012/01/31/webservice-consulta-de-cep-diretamente-ao-site-dos-correios/
-* Traduções pt-BR do Magento: http://www.cerebrum.com.br/index.php/magento-portugues-download-traducao-brasil-cielo-redecard-american-express.html
+- Salva o CPF pelo campo taxvat;
+- Carrinho é esvaziado após a conclusão do pedido;
+- Janela modal para login e recuperação de senha na tela do pedido;
+- Máscara para telefone / celular adaptada para o nono dígito;
+- Separação clara de endereço de compra e entrega;
+- Busca de CEP objetiva, sem a utilização de biblioteca extra (PHPQuery);
+
+### Comparativo
+
+
+### Referências
+
+- https://github.com/deivisonarthur/OSC-Magento-Brasil-4-Pro
+- http://www.interiorwebdesign.com/magento/magento-one-step-checkout-module.html
 
