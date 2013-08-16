@@ -337,10 +337,7 @@ class DiegoSouza_CheckoutSimplificado_Model_Type_Geo
 
         if (!$this->getQuote()->getCheckoutMethod())
         {
-            if (Mage::helper('checkoutsimplificado')->isGuestCheckoutAllowed())
-                $this->getQuote()->setCheckoutMethod(self::GUEST);
-            else
-                $this->getQuote()->setCheckoutMethod(self::REGISTER);
+            $this->getQuote()->setCheckoutMethod(self::REGISTER);
         }
         return $this->getQuote()->getCheckoutMethod();
     }
@@ -574,18 +571,13 @@ class DiegoSouza_CheckoutSimplificado_Model_Type_Geo
 
         $this->validate();
         $newCustomer = false;
-        switch ($this->getCheckoutMethod())
+        if ($this->getCheckoutMethod() === self::REGISTER)
         {
-            case self::GUEST:
-                $this->_prepareGuestQuote();
-                break;
-            case self::REGISTER:
-                $this->_prepareNewCustomerQuote();
-                $newCustomer = true;
-                break;
-            default:
-                $this->_prepareCustomerQuote();
-                break;
+            $this->_prepareNewCustomerQuote();
+            $newCustomer = true;
+        } else {
+            $this->_prepareCustomerQuote();
+            break;
         }
 
         $service_quote = Mage::getModel('checkoutsimplificado/service_quote', $this->getQuote());
