@@ -2,7 +2,7 @@ function buscarEndereco(base_url, cep, logradouro, numero, bairro, cidade, estad
     cep = cep.replace('-', '');
 
     if (/\d{8}/.test(cep)) {
-        $j.getJSON(base_url + 'checkoutsimplificado/index/cep/numero/' + cep) // trocar URL e fazer server-side
+        $j.getJSON(base_url + 'checkoutsimplificado/index/cep/numero/' + cep)
             .done(function(endereco){
                 document.getElementById(logradouro).value = endereco.logradouro;
                 document.getElementById(bairro).value = endereco.bairro;

@@ -218,6 +218,9 @@ OPC.prototype = {
                 }
             }
         }
+        if (response.duplicateBillingInfo) {
+            shipping.syncWithBilling()
+        }
         if (response.reload_totals) {
             checkout.update({
                 'review': 1
@@ -240,12 +243,18 @@ BillingAddress.prototype = {
                 }
                 resetRegionId.delay(0.2)
             }
+            if ($('shipping:same_as_billing') && $('shipping:same_as_billing').checked) {
+                shipping.syncWithBilling()
+            }
             checkout.update({
                 'payment-method': 1,
                 'shipping-method': !$('shipping:same_as_billing') || $('shipping:same_as_billing').checked ? 1 : 0
             })
         });
         $('billing_customer_address') && $('billing_customer_address').observe('change', function () {
+            if ($('shipping:same_as_billing') && $('shipping:same_as_billing').checked) {
+                shipping.syncWithBilling()
+            }
             checkout.update({
                 'payment-method': 1,
                 'shipping-method': !$('shipping:same_as_billing') || $('shipping:same_as_billing').checked ? 1 : 0
@@ -253,6 +262,7 @@ BillingAddress.prototype = {
         });
         $('billing:region_id') && $('billing:region_id').observe('change', function () {
             if ($('shipping:same_as_billing') && $('shipping:same_as_billing').checked) {
+                shipping.syncWithBilling();
                 checkout.update({
                     'review': 1
                 })
@@ -264,6 +274,7 @@ BillingAddress.prototype = {
         });
         $('billing:postcode') && $('billing:postcode').observe('change', function () {
             if ($('shipping:same_as_billing') && $('shipping:same_as_billing').checked) {
+                shipping.syncWithBilling();
                 checkout.update({
                     'review': 1
                 })
@@ -304,9 +315,9 @@ BillingAddress.prototype = {
     },
     setCreateAccount: function (flag) {
         if (flag) {
-            $('register-customer-password').show()
+            $('register-customer-password').show();
         } else {
-            $('register-customer-password').hide()
+            $('register-customer-password').hide();
         }
     }
 };
@@ -373,11 +384,33 @@ ShippingAddress.prototype = {
         $('billing:use_for_shipping').value = flag ? 1 : 0;
         if (flag) {
             $('ship_address_block').hide();
+            this.syncWithBilling();
             checkout.update({
                 'shipping-method': 1
             });
         } else {
             $('ship_address_block').show();
+        }
+    },
+    syncWithBilling: function () {
+        $('billing_customer_address') && this.newAddress(!$('billing_customer_address').value);
+        $('shipping:same_as_billing').checked = true;
+        $('billing:use_for_shipping').value = 1;
+        if (!$('billing_customer_address') || !$('billing_customer_address').value) {
+            arrElements = Form.getElements(this.form);
+            for (var elemIndex in arrElements) {
+                if (arrElements[elemIndex].id) {
+                    var sourceField = $(arrElements[elemIndex].id.replace(/^shipping:/, 'billing:'));
+                    if (sourceField) {
+                        arrElements[elemIndex].value = sourceField.value
+                    }
+                }
+            }
+            shippingRegionUpdater.update();
+            $('shipping:region_id').value = $('billing:region_id').value;
+            $('shipping:region').value = $('billing:region').value;
+        } else {
+            $('shipping_customer_address').value = $('billing_customer_address').value;
         }
     },
     setRegionValue: function () {
@@ -606,14 +639,14 @@ OPC.Window.prototype = {
             markup: '<div class="d-shadow-wrap">' + '<div class="content"></div>' + '<div class="d-sh-cn d-sh-tl"></div><div class="d-sh-cn d-sh-tr"></div>' + '</div>' + '<div class="d-sh-cn d-sh-bl"></div><div class="d-sh-cn d-sh-br"></div>' + '<a href="javascript:void(0)" class="close"></a>'
         }, config || {});
         this._prepareMarkup();
-        this._attachEventListeners()
+        this._attachEventListeners();
     },
     show: function () {
         if (!this.centered) {
-            this.center()
+            this.center();
         }
         $$('select').invoke('addClassName', 'checkoutsimplificado-hidden');
-        this.window.show()
+        this.window.show();
     },
     hide: function () {
         this.window.hide();
@@ -642,7 +675,7 @@ OPC.Window.prototype = {
         })
     },
     activate: function (trigger) {
-        this.update(this.config.triggers[trigger].window.show()).show()
+        this.update(this.config.triggers[trigger].window.show()).show();
     },
     updateSize: function () {
         this.window.setStyle({
@@ -687,7 +720,7 @@ OPC.Window.prototype = {
 	                        }
 	                        var oldContent = this.content.down();
 	                        oldContent && $(document.body).insert(oldContent.hide());
-	                        this.update(trigger.window.show()).show()
+	                        this.update(trigger.window.show()).show();
 	                    }.bind(this))
 	                }.bind(this))
 	            }
@@ -704,13 +737,13 @@ OPC.Window.prototype = {
 
 function open_login() {
     $('checkoutsimplificado_forgotbox').hide();
-    $('checkoutsimplificado_loginbox').show()
+    $('checkoutsimplificado_loginbox').show();
 }function open_forgot() {
     $('checkoutsimplificado_loginbox').hide();
-    $('checkoutsimplificado_forgotbox').show()
+    $('checkoutsimplificado_forgotbox').show();
 }function close_login() {
     $('checkoutsimplificado_forgotbox').hide();
-    $('checkoutsimplificado_loginbox').hide()
+    $('checkoutsimplificado_loginbox').hide();
 }
 
 function check_secure_url(url) {
@@ -721,7 +754,7 @@ function check_secure_url(url) {
             else url = 'https://' + url
         }
     }
-    return url
+    return url;
 }
 
 window.onload = function () {
