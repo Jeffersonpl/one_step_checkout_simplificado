@@ -1,45 +1,80 @@
 function buscarEndereco(base_url, cep, logradouro, numero, bairro, cidade, estado) {
-    cep = cep.replace('-', '');
 
-    if (/\d{8}/.test(cep)) {
-        $j.getJSON(base_url + 'checkoutsimplificado/index/cep/numero/' + cep)
-            .done(function(endereco){
-                document.getElementById(logradouro).value = endereco.logradouro;
-                document.getElementById(bairro).value = endereco.bairro;
-                document.getElementById(cidade).value = endereco.localidade;
+    var numeroCep = cep.getValue().replace('-', '');
+    var urlCep = base_url + 'checkoutsimplificado/index/cep/numero/' + numeroCep;
 
-                switch(endereco.uf) {
-                    case "AC": document.getElementById(estado).value = 485; break;
-                    case "AL": document.getElementById(estado).value = 486; break;
-                    case "AP": document.getElementById(estado).value = 487; break;
-                    case "AM": document.getElementById(estado).value = 488; break;
-                    case "BA": document.getElementById(estado).value = 489; break;
-                    case "CE": document.getElementById(estado).value = 490; break;
-                    case "ES": document.getElementById(estado).value = 491; break;
-                    case "GO": document.getElementById(estado).value = 492; break;
-                    case "MA": document.getElementById(estado).value = 493; break;
-                    case "MT": document.getElementById(estado).value = 494; break;
-                    case "MS": document.getElementById(estado).value = 495; break;
-                    case "MG": document.getElementById(estado).value = 496; break;
-                    case "PA": document.getElementById(estado).value = 497; break;
-                    case "PB": document.getElementById(estado).value = 498; break;
-                    case "PR": document.getElementById(estado).value = 499; break;
-                    case "PE": document.getElementById(estado).value = 500; break;
-                    case "PI": document.getElementById(estado).value = 501; break;
-                    case "RJ": document.getElementById(estado).value = 502; break;
-                    case "RN": document.getElementById(estado).value = 503; break;
-                    case "RS": document.getElementById(estado).value = 504; break;
-                    case "RO": document.getElementById(estado).value = 505; break;
-                    case "RR": document.getElementById(estado).value = 506; break;
-                    case "SC": document.getElementById(estado).value = 507; break;
-                    case "SP": document.getElementById(estado).value = 508; break;
-                    case "SE": document.getElementById(estado).value = 509; break;
-                    case "TO": document.getElementById(estado).value = 510; break;
-                    case "DF": document.getElementById(estado).value = 511; break;
-                }
+    if (/\d{8}/.test(numeroCep)) {
 
-                document.getElementById(numero).focus();
+        $j.ajax({
+            url: urlCep,
+            dataType: "json",
+            timeout: 7000,
+            beforeSend: function() {
+                [logradouro, bairro, cidade].each(function(elemento) {
+                    elemento.setValue('');
+                    elemento.writeAttribute('readonly', 'readonly');
+                    elemento.setStyle({
+                        background: '#EFEFEF'
+                    });
+                });
+                
+                logradouro.setValue('buscando endereço...');
+            }
+
+        }).done(function(endereco){
+            logradouro.setValue(endereco.logradouro);
+            bairro.setValue(endereco.bairro);
+            cidade.setValue(endereco.localidade);
+
+            switch(endereco.uf) {
+                case "AC": estado.setValue(485); break;
+                case "AL": estado.setValue(486); break;
+                case "AP": estado.setValue(487); break;
+                case "AM": estado.setValue(488); break;
+                case "BA": estado.setValue(489); break;
+                case "CE": estado.setValue(490); break;
+                case "ES": estado.setValue(491); break;
+                case "GO": estado.setValue(492); break;
+                case "MA": estado.setValue(493); break;
+                case "MT": estado.setValue(494); break;
+                case "MS": estado.setValue(495); break;
+                case "MG": estado.setValue(496); break;
+                case "PA": estado.setValue(497); break;
+                case "PB": estado.setValue(498); break;
+                case "PR": estado.setValue(499); break;
+                case "PE": estado.setValue(500); break;
+                case "PI": estado.setValue(501); break;
+                case "RJ": estado.setValue(502); break;
+                case "RN": estado.setValue(503); break;
+                case "RS": estado.setValue(504); break;
+                case "RO": estado.setValue(505); break;
+                case "RR": estado.setValue(506); break;
+                case "SC": estado.setValue(507); break;
+                case "SP": estado.setValue(508); break;
+                case "SE": estado.setValue(509); break;
+                case "TO": estado.setValue(510); break;
+                case "DF": estado.setValue(511); break;
+            }
+
+            numero.focus();
+
+        }).fail(function() {
+            numero.clear();
+            logradouro.clear();
+            logradouro.focus();
+
+        }).always(function() {
+            if (cep.id == 'billing:postcode' && $('shipping:same_as_billing').checked) {
+                $('shipping:street1').clear();
+            }
+
+            [logradouro, bairro, cidade].each(function(elemento) {
+                elemento.writeAttribute('readonly', false);
+                elemento.setStyle({
+                    background: '#FFFFFF'
+                });
             });
+        });
     }
 }
 
