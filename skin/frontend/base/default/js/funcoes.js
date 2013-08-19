@@ -64,7 +64,7 @@ function buscarEndereco(base_url, cep, logradouro, numero, bairro, cidade, estad
             logradouro.focus();
 
         }).always(function() {
-            if (cep.id == 'billing:postcode' && $('shipping:same_as_billing').checked) {
+            if (cep.id == 'billing:postcode' && $('shipping:same_as_billing') && $('shipping:same_as_billing').checked) {
                 $('shipping:street1').clear();
             }
 
