@@ -577,7 +577,6 @@ class DiegoSouza_CheckoutSimplificado_Model_Type_Geo
             $newCustomer = true;
         } else {
             $this->_prepareCustomerQuote();
-            break;
         }
 
         $service_quote = Mage::getModel('checkoutsimplificado/service_quote', $this->getQuote());
