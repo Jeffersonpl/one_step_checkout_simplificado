@@ -63,7 +63,7 @@ $has_addr	= $this->customerHasAddresses();
                     <div class="short">
                         <label for="shipping:street2" class="required">Número</label> <sup>*</sup>
                         <div class="data_area">
-                            <input type="text" id="shipping:street2" name="shipping[street][2]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getStreet(2)) ?>" title="<?php echo $this->__('N&uacute;mero') ?>" class="input-text t1<?php if($numero === 'required'){ echo ' required-entry';} ?>" />
+                            <input type="text" id="shipping:street2" name="shipping[street][2]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getStreet(2)) ?>" title="<?php echo $this->__('N&uacute;mero') ?>" class="input-text t1" />
                         </div>
                     </div>
 
@@ -105,7 +105,7 @@ $has_addr	= $this->customerHasAddresses();
                             //]]>
                             </script>
 
-                            <input type="text" id="shipping:region" name="shipping[region]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="t1<?php if($state_r === 'required'){ echo ' required-entry';}?>" style="display:none;" />
+                            <input type="text" id="shipping:region" name="shipping[region]" value="<?php echo $this->htmlEscape($this->getBillAddress()->getRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="t1" style="display:none;" />
                         </div>
                     </div>
                 </div>
