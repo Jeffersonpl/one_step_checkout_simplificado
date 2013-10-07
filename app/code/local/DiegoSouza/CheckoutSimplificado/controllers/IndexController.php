@@ -648,8 +648,7 @@ class DiegoSouza_CheckoutSimplificado_IndexController extends Mage_Checkout_Cont
 
     protected function _filterPostData($data)
     {
-        $data = $this->_filterDates($data, array('dob'));
-        return $data;
+        return $this->_filterDates($data, array('dob'));
     }
     
     protected function _checkChangedAddress($data, $addr_type = 'Billing', $addr_id = false)

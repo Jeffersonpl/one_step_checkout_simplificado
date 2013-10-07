@@ -384,10 +384,6 @@ class DiegoSouza_CheckoutSimplificado_Model_Type_Geo
         }
         else
         {   
-            //contribuicao https://github.com/deivisonarthur/OSC-Magento-Brasil-4-Pro/issues/4#issuecomment-14512589
-            if (!empty($data['year']) && !empty($data['month']) && !empty($data['day'])) {
-                $data['dob'] = "{$data['year']}-{$data['month']}-{$data['day']}";
-            }
             unset($data['address_id']);
             $address->addData($data);
         }
@@ -511,15 +507,6 @@ class DiegoSouza_CheckoutSimplificado_Model_Type_Geo
 
     protected function _processValidateCustomer(Mage_Sales_Model_Quote_Address $address)
     {
-        if ($address->getGender())
-            $this->getQuote()->setCustomerGender($address->getGender());
-    	
-        $dob = '';
-        if ($address->getDob()) {
-            $dob = Mage::app()->getLocale()->date($address->getDob(), null, null, false)->toString('yyyy-MM-dd');
-            $this->getQuote()->setCustomerDob($dob);
-        }
-
         if ($address->getTaxvat())
             $this->getQuote()->setCustomerTaxvat($address->getTaxvat());
 
@@ -534,14 +521,10 @@ class DiegoSouza_CheckoutSimplificado_Model_Type_Geo
                 'confirmation' => 'confirm_password',            
                 'firstname'    => 'firstname',
                 'lastname'     => 'lastname',
-                'gender'       => 'gender',
                 'taxvat'       => 'taxvat');
 
             foreach ($cust_data as $key => $value)
                 $customer->setData($key, $address->getData($value));
-
-            if ($dob)
-                $customer->setDob($dob);
 
             $val_result = $customer->validate();
             if ($val_result !== true && is_array($val_result))
@@ -754,12 +737,6 @@ class DiegoSouza_CheckoutSimplificado_Model_Type_Geo
         	else
 				$cust_bill->setIsDefaultShipping(true);
         }
-
-        if (!$bill->getCustomerGender() && $this->getQuote()->getCustomerGender())
-            $bill->setCustomerGender($this->getQuote()->getCustomerGender());
-        
-        if (!$bill->getCustomerDob() && $this->getQuote()->getCustomerDob())
-            $bill->setCustomerDob($this->getQuote()->getCustomerDob());
 
         if (!$bill->getCustomerTaxvat() && $this->getQuote()->getCustomerTaxvat())
             $bill->setCustomerTaxvat($this->getQuote()->getCustomerTaxvat());
