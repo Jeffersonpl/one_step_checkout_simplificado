@@ -88,7 +88,7 @@ $has_addr	= $this->customerHasAddresses();
             <div class="full">
                 <label for="billing:postcode" class="required">CEP</label><sup>*</sup>
                 <div class="data_area">
-                <input type="text" title="CEP" name="billing[postcode]" id="billing:postcode" value="" class="t1 validate-zip-international required-entry" onblur="buscarEndereco('<?php echo Mage::getBaseUrl(); ?>', $(this),$('billing:street1'),$('billing:street2'),$('billing:street4'),$('billing:city'),$('billing:region_id')); checkout.update({'shipping-method' : 1});"/>
+                <input type="text" title="CEP" name="billing[postcode]" id="billing:postcode" value="" class="t1 validate-zip-international required-entry" onblur="buscarEndereco('<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, Mage::app()->getStore()->isCurrentlySecure()); ?>', $(this),$('billing:street1'),$('billing:street2'),$('billing:street4'),$('billing:city'),$('billing:region_id')); checkout.update({'shipping-method' : 1});"/>
                 </div>
             </div>
 

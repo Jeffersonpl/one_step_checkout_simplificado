@@ -74,7 +74,7 @@
                         <div class="field">
                             <label for="zip" class="required"><em>*</em>CEP</label>
                             <div class="input-box">
-                                <input type="text" name="postcode" value="<?php echo $this->escapeHtml($this->getFormData()->getPostcode()) ?>" title="CEP" id="zip" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" onblur="buscarEndereco('<?php echo Mage::getBaseUrl(); ?>', $(this),$('street1'),$('street2'),$('street4'),$('city'),$('region_id'));" />
+                                <input type="text" name="postcode" value="<?php echo $this->escapeHtml($this->getFormData()->getPostcode()) ?>" title="CEP" id="zip" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" onblur="buscarEndereco('<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, Mage::app()->getStore()->isCurrentlySecure()); ?>', $(this),$('street1'),$('street2'),$('street4'),$('city'),$('region_id'));" />
                             </div>
                         </div>
                     </li>
