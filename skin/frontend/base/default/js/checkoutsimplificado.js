@@ -427,7 +427,10 @@ ShippingMethod.prototype = {
             el.observe('click', function () {
                 checkout.update({
                     'review': 1
-                })
+                });
+                setTimeout(function() {
+                    checkout.update({ 'payment-method': 1 });
+                }, 1000);
             })
         })
     },
