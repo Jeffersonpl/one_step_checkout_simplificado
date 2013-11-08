@@ -76,20 +76,20 @@ $seq_http	= (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS']==='on');
 
     var $j = jQuery.noConflict();
 
-    $j(document).ready(function($) {
-        $('input[name*="postcode"]').mask("99999-999");
-        $('input[name*="telephone"]').mask("(99) 9999999?99");
-        $('input[name*="celular"]').mask("(99) 9999999?99");
-        $('input[name*="taxvat"]').mask("999.999.999-99");
+    $j(document).ready(function() {
+        $j('input[name*="postcode"]').mask("99999-999");
+        $j('input[name*="telephone"]').mask("(99) 9999999?99");
+        $j('input[name*="celular"]').mask("(99) 9999999?99");
+        $j('input[name*="taxvat"]').mask("999.999.999-99");
 
-        $('#modal').click(function() {
-            $('#checkoutsimplificado_loginbox').fadeIn();
+        $j('#modal').click(function() {
+            $j('#checkoutsimplificado_loginbox').fadeIn();
         });
 
-        $('#checkoutsimplificado_loginbox, #checkoutsimplificado_forgotbox').css({
+        $j('#checkoutsimplificado_loginbox, #checkoutsimplificado_forgotbox').css({
             position:'absolute',
-            left: ($(window).width() - $('#checkoutsimplificado_loginbox, #checkoutsimplificado_forgotbox').outerWidth())/2,
-            top: ($(window).height() - $('#checkoutsimplificado_loginbox, #checkoutsimplificado_forgotbox').outerHeight())/2
+            left: ($j(window).width() - $j('#checkoutsimplificado_loginbox, #checkoutsimplificado_forgotbox').outerWidth())/2,
+            top: ($j(window).height() - $j('#checkoutsimplificado_loginbox, #checkoutsimplificado_forgotbox').outerHeight())/2
         });
     });
 </script>

@@ -5,10 +5,10 @@
 
     var $j = jQuery.noConflict();
 
-    $j(document).ready(function($) {
-        $('input[name*="postcode"]').mask("99999-999");
-        $('input[name*="telephone"]').mask("(99) 9999999?99");
-        $('input[name*="celular"]').mask("(99) 9999999?99");
+    $j(document).ready(function() {
+        $j('input[name*="postcode"]').mask("99999-999");
+        $j('input[name*="telephone"]').mask("(99) 9999999?99");
+        $j('input[name*="celular"]').mask("(99) 9999999?99");
     });
 </script>
 
