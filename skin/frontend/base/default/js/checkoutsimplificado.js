@@ -438,7 +438,7 @@ ShippingMethod.prototype = {
         OPC.Messenger.clear('checkout-shipping-method-load');
         var methods = document.getElementsByName('shipping_method');
         if (methods.length == 0) {
-            OPC.Messenger.add(Translator.translate('Your order cannot be completed at this time as there is no shipping methods available for it. Please make neccessary changes in your shipping address.'), 'checkout-shipping-method-load', 'error');
+            OPC.Messenger.add('Seu pedido não pode ser finalizado no momento, pois não há formas de entrega disponíveis para ele. Talvez seja necessário alterar o seu endereço de entrega.', 'checkout-shipping-method-load', 'error');
             return false;
         }
         for (var i = 0; i < methods.length; i++) {
@@ -446,7 +446,7 @@ ShippingMethod.prototype = {
                 return true;
             }
         }
-        OPC.Messenger.add(Translator.translate('Please specify shipping method.'), 'checkout-shipping-method-load', 'error');
+        OPC.Messenger.add('Por favor, selecione a forma de entrega.', 'checkout-shipping-method-load', 'error');
         return false;
     }
 };
@@ -561,7 +561,7 @@ Payment.prototype = {
         }
         var methods = document.getElementsByName('payment[method]');
         if (methods.length == 0) {
-            OPC.Messenger.add(Translator.translate('Your order cannot be completed at this time as there is no payment methods available for it.'), 'checkout-payment-method-load', 'error');
+            OPC.Messenger.add('Seu pedido não pode ser finalizado neste momento, pois não há formas de pagamento disponíveis para ele.', 'checkout-payment-method-load', 'error');
             return false
         }
         for (var i = 0; i < methods.length; i++) {
@@ -573,7 +573,7 @@ Payment.prototype = {
         if (result) {
             return true
         }
-        OPC.Messenger.add(Translator.translate('Please specify payment method.'), 'checkout-payment-method-load', 'error');
+        OPC.Messenger.add('Por favor, selecione a forma de pagamento.', 'checkout-payment-method-load', 'error');
         return false
     },
     addAfterValidateFunction: function (code, func) {
