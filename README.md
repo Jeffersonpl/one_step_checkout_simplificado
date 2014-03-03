@@ -34,3 +34,7 @@ Para ter uma idéia (aproximada), somando as linhas de código em arquivos (php,
 - https://github.com/deivisonarthur/OSC-Magento-Brasil-4-Pro
 - http://www.interiorwebdesign.com/magento/magento-one-step-checkout-module.html
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/diegosouza/one_step_checkout_simplificado/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
