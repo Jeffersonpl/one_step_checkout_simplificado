@@ -244,7 +244,7 @@ if(  @$estadoTeste2[0]['attribute_code'] != "celular"  ){
 };
 
 // Taxvat obrigatório p/ salvar CPF no cadastro
-$installer->run("UPDATE core_config_data SET value = 'req' WHERE path = 'customer/address/taxvat_show'");
+$installer->run("UPDATE " . Mage::getConfig()->getTablePrefix() . "core_config_data SET value = 'req' WHERE path = 'customer/address/taxvat_show'");
 
 
 $installer->endSetup();
