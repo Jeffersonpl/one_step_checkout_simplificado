@@ -36,5 +36,4 @@ Para ter uma idéia (aproximada), somando as linhas de código em arquivos (php,
 
 
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/diegosouza/one_step_checkout_simplificado/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
