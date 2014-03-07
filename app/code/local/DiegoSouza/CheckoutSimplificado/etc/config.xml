@@ -156,15 +156,6 @@
                 </observers>
             </sales_model_service_quote_submit_before>
 
-            <controller_action_layout_render_before_checkout_cart_index>
-                <observers>
-                    <checkoutsimplificado>
-                        <class>checkoutsimplificado/observer</class>
-                        <method>setEmptyCartTemplate</method>
-                    </checkoutsimplificado>
-                </observers>
-            </controller_action_layout_render_before_checkout_cart_index>
-
         </events>
     </frontend>
 
