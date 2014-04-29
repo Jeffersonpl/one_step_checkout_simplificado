@@ -39,19 +39,6 @@ $seq_http	= (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS']==='on');
             <?php echo $this->getChildHtml('coupon') ?>
         </div>
 
-        <?php if (Mage::getStoreConfig('checkoutsimplificado/general/comment')) : ?>
-		<div class="op_block_title">
-	    	<?php echo $this->helper('sales')->__('Comment') ?>
-	    </div>        
-        <div class="form_fields">
-            <div class="full">
-                <div class="data_area" id='comment-block'>
-                    <textarea name="order-comment" id="order-comment"><?php echo trim(Mage::getSingleton('customer/session')->getOrderCustomerComment()) ?></textarea>
-                </div>
-            </div>
-        </div>
-        <?php endif; ?>
-
 		<?php if (Mage::helper('checkoutsimplificado')->isSubscribeNewAllowed()) : ?>
             <p class="newsletter">
                 <input type="hidden" checked="checked" id="newsletter-signup" name="newsletter" value="1" title="<?php echo Mage::helper('newsletter')->__('Sign up for our newsletter') ?>" class="checkbox" />
